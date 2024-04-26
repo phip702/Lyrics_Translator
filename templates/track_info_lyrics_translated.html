@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Information</title>
+</head>
+<body>
+    <h1>Displaying lyrics for: {{ track_artist }}'s "{{ track_name }}"</h1>
+    {% if track_image %}
+        <img src="{{ track_image }}" alt="Track Image" style="width:300px;"><br>
+    {% endif %}
+    {% if zipped_lyrics %}
+        <div>
+            <h2>Original Lyrics and Translated Lyrics:</h2>
+            <table>
+                <tr>
+                    <th>Original Lyrics</th>
+                    <th>Translated Lyrics</th>
+                </tr>
+                {% for original_line, translated_line in zipped_lyrics %}
+                <tr>
+                    <td>{{ original_line }}</td>
+                    <td>{{ translated_line }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p>No lyrics available for this track.</p>
+    {% endif %}
+    <a href="/">Back to search</a>
+</body>
+</html>
