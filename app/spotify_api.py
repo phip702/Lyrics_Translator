@@ -4,12 +4,19 @@ import base64
 from requests import post, get
 import json
 import logging
+from urllib.parse import urlparse
 
 def get_song_id_from_url(url):
-    idx = url.rfind('/') # finds the character position of the first '/' encountered searching from right to left
-    spotify_track_id = url[idx +1:]
-    logging.debug(f"Found spotify track id: {spotify_track_id}")
-    return spotify_track_id #return everything to the right of the last '/' which should be the Spotify track ID
+    parsed_url = urlparse(url) # Creates a tuple of the different parts, often URLs have queries that need to be stripped off
+    print(parsed_url)
+    path_parts = parsed_url.path.split('/')
+    # Extract the part of the path that corresponds to the track ID
+    for part in reversed(path_parts): # Grabs the last part of the 'path' parseresult
+        if part:
+            spotify_track_id = part
+            break
+    logging.debug(f"Supposed spotify track id from URL: {spotify_track_id}")
+    return spotify_track_id
 
 #TODO: will need to get refresh tokens or get new ones; could be useful to add an if statement to see if we already have a good URL?
 def get_token():
