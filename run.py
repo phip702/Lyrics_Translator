@@ -2,7 +2,7 @@
 from app import create_app
 import os
 
-app = create_app()
+app, celery = create_app()
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001)) # tells Flask to look for the PORT variable assigned by Heroku else use local port 5001
