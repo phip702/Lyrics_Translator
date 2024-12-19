@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/philipranney/Library/Mobile Documents/com~apple~CloudDocs/CU Boulder MSDS/SWA/SWA Final Structured/venv/bin/python3.12" "$0" "$@"
-' '''
+#!/Users/philipranney/Lyrics_Translator/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
