@@ -9,10 +9,8 @@ from ..handlers.lyrics_handler import get_translated_lyrics
 
 track = Blueprint('track', __name__)
 
-@track.route('/track', methods= ['POST'])
-def track_page():
-    user_input_url = request.form.get('user_input_url')
-    spotify_track_id = get_song_id_from_url(user_input_url)
+@track.route('/track/<spotify_track_id>', methods= ['GET']) #TODO: use spotify_track_id as part of the url, so /track/spotify_track_id; will need to POST this from main
+def track_page(spotify_track_id):
     logging.debug((f"spotify_track_id: {spotify_track_id}"))
 
     track_name, track_artist, track_image = check_track_row_exists(spotify_track_id)
