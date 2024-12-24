@@ -14,11 +14,15 @@ class Lyrics(db.Model):
 
     track = relationship("Track", back_populates = "lyrics", uselist=False) #each track will only have one lyrics
 
-    def __init__(self, spotify_track_id, original_lyrics, translated_lyrics, detected_language):
+    def __init__(self, spotify_track_id, original_lyrics, translated_lyrics, detected_language, lyrics_date_added=None):
         self.spotify_track_id = spotify_track_id
         self.original_lyrics = original_lyrics
         self.translated_lyrics = translated_lyrics
         self.detected_language = detected_language
+        if lyrics_date_added:
+            self.lyrics_date_added=lyrics_date_added
+        else:
+            self.lyrics_date_added = utc_now
 
     def __repr__(self):
         return f"Lyrics[('{self.spotify_track_id}'), ('{self.detected_language}')]"

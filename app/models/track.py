@@ -11,14 +11,17 @@ class Track(db.Model):
     track_image = db.Column(db.String(100))
     track_date_added = db.Column(db.DateTime, default=utc_now)
 
-    lyrics = db.relationship('Lyrics', back_populates='track', uselist=False) #* uncomment later when adding Lyrics
+    lyrics = db.relationship('Lyrics', back_populates='track', uselist=False)
 
-    def __init__(self, spotify_track_id, track_name, track_artist, track_image, track_date_added = utc_now):
+    def __init__(self, spotify_track_id, track_name, track_artist, track_image, track_date_added = None):
         self.spotify_track_id = spotify_track_id
         self.track_name = track_name
         self.track_artist = track_artist
         self.track_image = track_image
-        self.track_date_added = track_date_added
+        if track_date_added:
+            self.track_date_added = track_date_added
+        else:
+            self.track_date_added = utc_now
 
     def __repr__(self):
         return f"Track[('{self.spotify_track_id}'), ('{self.track_artist}'),  ('{self.track_name}'), ('{self.track_image}')]"

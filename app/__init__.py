@@ -34,7 +34,7 @@ def create_app():
         db.create_all()  # Initializes tables that do not already exist
         inspector = inspect(db.engine)  # Create an inspector object to inspect the database engine
         tables = inspector.get_table_names()  # Get the list of table names
-        logging.critical("Tables: %s", tables)
+        logging.critical("Tables Initialized: %s", tables)
         
         
     print("APP INITIALIZED")
