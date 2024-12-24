@@ -16,9 +16,9 @@ def home():
         session['genius_auth_token'] = genius_auth_token
 
     if request.method == 'POST':
-        user_input = request.form.get("user_input")
-        return redirect(url_for('track.track_page', user_input=user_input))#delete
-        #return redirect(url_for('lyrics.lyrics_page', user_input=user_input))
+        user_input_url = request.form.get("user_input_url")
+        #return redirect(url_for('lyrics.lyrics_page', input_user_url=input_user_url)) #* use hard refresh to fix redirects not updating (Cmd + Shift + R)
+        return redirect(url_for('track.track_page', input_user_url=user_input_url))#delete
     
     return render_template('main.html')
 

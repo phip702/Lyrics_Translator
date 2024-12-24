@@ -1,17 +1,17 @@
+import logging
 from flask import Flask
-
 from .extensions import db, migrate
 from .routes.main import main
 from .routes.lyrics import lyrics
 from .routes.track import track
-#from .models import * 
-from .models.track import Track #removing this fixed a blueprint not registered error for scripts/import_csv_table
+from .models import Track, Lyrics
 from dotenv import load_dotenv
 from sqlalchemy import inspect
 
 
 
 def create_app():
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
     load_dotenv()
 
@@ -20,7 +20,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
     #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    app.app_context().push()
+    #app.app_context().push()
 
     db.init_app(app)
     migrate.init_app(app,db)
@@ -31,11 +31,10 @@ def create_app():
 
     
     with app.app_context():
-        db.create_all()
-        inspector = inspect(db.engine)
-        print("Tables:", inspector.get_table_names())
-        first_row = Track.query.first()
-        print(first_row)
+        db.create_all()  # Initializes tables that do not already exist
+        inspector = inspect(db.engine)  # Create an inspector object to inspect the database engine
+        tables = inspector.get_table_names()  # Get the list of table names
+        logging.critical("Tables: %s", tables)
         
         
     print("APP INITIALIZED")
