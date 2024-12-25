@@ -123,7 +123,8 @@ def get_playlist_name_image(spotify_playlist_id):
 
 #* ----------------- PLAYLIST TRACK FUNCTIONS -----------------
 def get_playlist_tracks_info(spotify_playlist_id, token):
-    url = f"https://api.spotify.com/v1/playlists/{spotify_playlist_id}/tracks"
+    #TODO: add JS to enable the user to request to see more tracks (if more to show)
+    url = f"https://api.spotify.com/v1/playlists/{spotify_playlist_id}/tracks?" #*add ?limit=50 to make the maximum number of tracks returned 50, this is the Spotify max; and add &offset=51 to start from the 51st position
     headers = get_auth_header(token)
     result = get(url, headers=headers)
 
@@ -140,7 +141,12 @@ def get_playlist_tracks_info(spotify_playlist_id, token):
         logging.error(f"Failed to decode JSON from the response: {result.text}")
         return None
     
-def get_playlist_tracks_name_artist_image(playlist_tracks_json):
+def get_playlist_tracks_name_artist_image(spotify_playlist_id):
+    '''
+    This creates a list of Track objects using the JSON result from hitting Spotify's playlist tracks API
+    '''
+    token = get_token()
+    playlist_tracks_json = get_playlist_tracks_info(spotify_playlist_id, token)
     items = playlist_tracks_json.get('items', "No Items")
     tracks = []
     for item in items:
@@ -165,4 +171,4 @@ if __name__ == "__main__":
     playlist_name, playlist_image = get_playlist_name_image("4lvuWO8blWHWWGj3LfVzvD")
     token = get_token()
     playlist_tracks_json = get_playlist_tracks_info("4lvuWO8blWHWWGj3LfVzvD", token)
-    playlist_track_info = get_playlist_tracks_name_artist_image(playlist_tracks_json)
+    playlist_track_info = get_playlist_tracks_name_artist_image("4lvuWO8blWHWWGj3LfVzvD")

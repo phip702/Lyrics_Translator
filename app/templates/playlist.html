@@ -10,6 +10,26 @@
     {% else %}
         <p>No playlist available.</p>
     {% endif %}
+
+    <table border=""1">
+        <thead>
+            <tr>
+                <th>Track Image</th>
+                <th>Track Artist</th>
+                <th>Track Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for track in tracks %}
+            <tr>
+                <td><img = src= "{{  track.get_track_image()  }}" alt="Track Image" width="50" height="50"></td>
+                <td>{{ track.get_track_artist() }}</td>
+                <td>{{ track.get_track_name() }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
     <a href="/">Back to search</a>
 </body>
 </html>

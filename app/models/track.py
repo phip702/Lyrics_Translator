@@ -13,6 +13,19 @@ class Track(db.Model):
 
     lyrics = db.relationship('Lyrics', back_populates='track', uselist=False)
 
+    def get_track_id(self):
+        return self.spotify_track_id
+
+    def get_track_name(self):
+        return self.track_name
+    
+    def get_track_artist(self):
+        return self.track_artist
+
+    def get_track_image(self):
+        return self.track_image
+
+
     def __init__(self, spotify_track_id, track_name, track_artist, track_image, track_date_added = None):
         self.spotify_track_id = spotify_track_id
         self.track_name = track_name
