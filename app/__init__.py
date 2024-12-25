@@ -2,7 +2,7 @@ import logging
 from flask import Flask
 from .extensions import db, migrate
 from .routes.main import main
-from .routes.lyrics import lyrics
+from .routes.playlist import playlist
 from .routes.track import track
 from .models import Track, Lyrics
 from dotenv import load_dotenv
@@ -26,7 +26,7 @@ def create_app():
     migrate.init_app(app,db)
 
     app.register_blueprint(main)
-    app.register_blueprint(lyrics)
+    app.register_blueprint(playlist)
     app.register_blueprint(track)
 
     

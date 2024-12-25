@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playlist Information</title>
+</head>
+<body>
+    <h1>Displaying playlist: {{ playlist_name }}"</h1>
+    {% if playlist_image %}
+        <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;"><br>
+    {% else %}
+        <p>No playlist available.</p>
+    {% endif %}
+    <a href="/">Back to search</a>
+</body>
+</html>
