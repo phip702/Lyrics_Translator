@@ -25,7 +25,6 @@ class Track(db.Model):
     def get_track_image(self):
         return self.track_image
 
-
     def __init__(self, spotify_track_id, track_name, track_artist, track_image, track_date_added = None):
         self.spotify_track_id = spotify_track_id
         self.track_name = track_name
@@ -38,3 +37,17 @@ class Track(db.Model):
 
     def __repr__(self):
         return f"Track[('{self.spotify_track_id}'), ('{self.track_artist}'),  ('{self.track_name}'), ('{self.track_image}')]"
+    
+    def to_dict(self):
+        """
+        Convert the Track instance to a dictionary.
+        This method can be used for serialization to JSON for rabbitmq
+        """
+        # Convert the instance to a dictionary, excluding non-serializable attributes
+        return {
+            'spotify_track_id': self.spotify_track_id,
+            'track_name': self.track_name,
+            'track_artist': self.track_artist,
+            'track_image': self.track_image,
+            'track_date_added': self.track_date_added.isoformat(),  # Convert datetime to string
+        }

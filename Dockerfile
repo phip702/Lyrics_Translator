@@ -14,5 +14,6 @@ EXPOSE 5000
 ENV NAME World
 
 ENV FLASK_APP=app
+ENV FLASK_ENV=development
 
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8080", "--debug"]

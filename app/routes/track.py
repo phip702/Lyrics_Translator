@@ -1,11 +1,14 @@
 import logging
 from flask import Blueprint, render_template, request
-from ..extensions import * #this import the db
+from ..extensions import * #this imports the db
 from ..models.track import *
 from ..handlers.model_handlers import *
 from ..services.spotify import get_track_name_artist_image
 from ..services.genius import get_song_lyrics
 from ..handlers.lyrics_handler import get_translated_lyrics
+import pika
+import json
+from ..services.rabbitmq.insert_row_producer import insert_row_producer
 
 import time #delete later
 
@@ -24,7 +27,7 @@ def track_page(spotify_track_id):
             return render_template('error.html', error_message = f"Could not find info from Spotify") #if reaches this point, the user should have passed a proper track URL
     
         new_track = Track(spotify_track_id = str(spotify_track_id), track_name=track_name, track_artist=track_artist, track_image = track_image)
-        insert_row(db, new_track)
+        insert_row_producer(new_track)
 
     mid_time = time.time() #delete  
     original_lyrics, translated_lyrics, _ = check_lyrics_row_exists(spotify_track_id)
