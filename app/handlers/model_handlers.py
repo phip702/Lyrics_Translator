@@ -18,6 +18,21 @@ def check_lyrics_row_exists(track_id):
         return None, None, None
     
 def insert_row(db, Table_Instance):
-    db.session.add(Table_Instance)
-    db.session.commit()
-    logging.debug("Row inserted")
+    if type(Table_Instance) == Track:
+        track = Track.query.filter_by(spotify_track_id=Table_Instance.spotify_track_id).first()
+        if track:
+            return #track already exists
+        
+    elif type(Table_Instance) == Lyrics:
+        lyrics = Lyrics.query.filter_by(spotify_track_id=Table_Instance.spotify_track_id).first()
+        if lyrics:
+            return #track already exists
+
+    # If row doesn't exist, insert it and log the success
+    try:
+        db.session.add(Table_Instance)
+        db.session.commit()
+        logging.debug(f"Row inserted successfully: {Table_Instance}")
+    except Exception as e:
+        db.session.rollback()
+        logging.error(f"Error inserting row: {e}")

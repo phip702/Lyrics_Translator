@@ -13,6 +13,6 @@ def playlist_page(spotify_playlist_id):
         return render_template('error.html', error_message = f"Could not find info from Spotify. Is the playlist public?") 
     
     tracks = get_playlist_tracks_name_artist_image(spotify_playlist_id) #* (2)could async this
-    logging.debug(f"Tracks: %s", tracks)
+    #logging.debug(f"Tracks: %s", tracks)
     return render_template("playlist.html", playlist_name=playlist_name, playlist_image=playlist_image, tracks=tracks)
     #TODO: make the html display the tracks

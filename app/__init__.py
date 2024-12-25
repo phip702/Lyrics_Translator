@@ -4,11 +4,20 @@ from .extensions import db, migrate
 from .routes.main import main
 from .routes.playlist import playlist
 from .routes.track import track
-from .models import Track, Lyrics
+#delete from .models import Track, Lyrics
 from dotenv import load_dotenv
 from sqlalchemy import inspect
+from celery import Celery
 
 
+def make_celery(app):
+    celery = Celery(
+        app.import_name,
+        backend=app.config['CELERY_RESULT_BACKEND'],
+        broker=app.config['CELERY_BROKER_URL']
+    )
+    celery.conf.update(app.config)
+    return celery
 
 def create_app():
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -36,6 +45,17 @@ def create_app():
         tables = inspector.get_table_names()  # Get the list of table names
         logging.critical("Tables Initialized: %s", tables)
         
-        
+    #celery = make_celery(app)  
     print("APP INITIALIZED")
-    return app
+    return app#, celery
+
+
+#TODO: async then message queue
+#TODO: testing
+#TODO: analytics --just use my old artifact, don't do anything more
+#TODO: push to Heroku
+#TODO: continuous integration?
+#TODO: continuous delivery?
+#TODO: production monitoring instrumenting
+#TODO: front end
+#TODO: make genius api call ignore 'romanized' versions

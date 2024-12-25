@@ -5,6 +5,8 @@ from requests import post, get
 import json
 import logging
 from ..models import Track
+from ..handlers.model_handlers import insert_row
+from ..extensions import * #this imports db
 
 #TODO: will need to get refresh tokens or get new ones; could be useful to add an if statement to see if we already have a good URL?
 def get_token():
@@ -151,14 +153,16 @@ def get_playlist_tracks_name_artist_image(spotify_playlist_id):
     tracks = []
     for item in items:
         track = item.get('track', [])
-        track_id = track.get('id', "Track ID not found")
+        track_id = track.get('id', "Track ID not found") #I think this is impossible, so not adding test for this
         track_name = get_track_name(track)
         track_artist = get_track_artist(track)
         track_image = get_track_image(track)
         new_track = Track(spotify_track_id=str(track_id), track_name=track_name, track_artist=track_artist, track_image = track_image)
         logging.debug(f"Playlist Track Class created: %s", new_track)
         tracks.append(new_track)
+
         #TODO: make the messaging queue add these to committs for the db
+        insert_row(db, new_track)
     return tracks
 
 

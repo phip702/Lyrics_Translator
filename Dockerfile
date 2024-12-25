@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy current directory's contents
 COPY  . .
@@ -13,6 +13,6 @@ EXPOSE 5000
 # Define environment variable
 ENV NAME World
 
-ENV FLASK_APP=run.py
+ENV FLASK_APP=app
 
-CMD [ "python", "./run.py" ]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=8080", "--debug"]

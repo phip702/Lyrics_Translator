@@ -49,13 +49,3 @@ def track_page(spotify_track_id):
     logging.debug(f"total_time = {end_time - start_time}")
 
     return render_template('track.html', track_name=track_name, track_artist=track_artist, track_image=track_image, zipped_lyrics=zipped_lyrics) 
-
-#TODO: async then message queue
-#TODO: testing
-#TODO: analytics --just use my old artifact, don't do anything more
-#TODO: push to Heroku
-#TODO: continuous integration?
-#TODO: continuous delivery?
-#TODO: production monitoring instrumenting
-#TODO: front end
-#TODO: make genius api call ignore 'romanized' versions
