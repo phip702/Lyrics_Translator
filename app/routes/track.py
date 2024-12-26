@@ -27,7 +27,7 @@ def track_page(spotify_track_id):
             return render_template('error.html', error_message = f"Could not find info from Spotify") #if reaches this point, the user should have passed a proper track URL
     
         new_track = Track(spotify_track_id = str(spotify_track_id), track_name=track_name, track_artist=track_artist, track_image = track_image)
-        insert_row_producer(new_track)
+        insert_row_producer(new_track) #TODO: test but will have to keep using new tracks not in DB
 
     mid_time = time.time() #delete  
     original_lyrics, translated_lyrics, _ = check_lyrics_row_exists(spotify_track_id)
@@ -47,8 +47,8 @@ def track_page(spotify_track_id):
 
 
     end_time = time.time() # delete
-    logging.debug(f"to_mid     = {mid_time - start_time}")
-    logging.debug(f"mid_to_end = {end_time - mid_time}") #* 85%ish of the time taken is done here
-    logging.debug(f"total_time = {end_time - start_time}")
+    logging.info(f"to_mid     = {mid_time - start_time}")
+    logging.info(f"mid_to_end = {end_time - mid_time}") #* 85%ish of the time taken is done here
+    logging.info(f"total_time = {end_time - start_time}")
 
     return render_template('track.html', track_name=track_name, track_artist=track_artist, track_image=track_image, zipped_lyrics=zipped_lyrics) 

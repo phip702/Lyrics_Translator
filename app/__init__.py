@@ -8,6 +8,17 @@ from .routes.track import track
 from dotenv import load_dotenv
 from sqlalchemy import inspect
 from celery import Celery
+from threading import Thread
+from app.services.rabbitmq.insert_row_producer import start_producer
+from app.services.rabbitmq.insert_row_consumer import start_consumer
+
+
+def run_rabbitmq_services():
+    producer_thread = Thread(target=start_producer)
+    consumer_thread = Thread(target=start_consumer)
+    producer_thread.start()
+    consumer_thread.start()
+
 
 
 def make_celery(app):
@@ -21,6 +32,7 @@ def make_celery(app):
 
 def create_app():
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.getLogger('pika').setLevel(logging.WARNING)
 
     load_dotenv()
 
@@ -45,8 +57,10 @@ def create_app():
         inspector = inspect(db.engine)  # Create an inspector object to inspect the database engine
         tables = inspector.get_table_names()  # Get the list of table names
         logging.critical("Tables Initialized: %s", tables)
-        
-    #celery = make_celery(app)  
+
+    run_rabbitmq_services()
+
+    #celery = make_celery(app) 
     print("APP INITIALIZED")
     return app#, celery
 
