@@ -65,7 +65,8 @@ def create_app():
     return app#, celery
 
 
-#TODO: async then message queue
+#C-TODO: message queue
+#TODO: implement async via threading for producing and consuming
 #TODO: testing
 #TODO: analytics --just use my old artifact, don't do anything more
 #TODO: push to Heroku

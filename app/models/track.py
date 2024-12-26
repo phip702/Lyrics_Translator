@@ -49,5 +49,5 @@ class Track(db.Model):
             'track_name': self.track_name,
             'track_artist': self.track_artist,
             'track_image': self.track_image,
-            'track_date_added': self.track_date_added.isoformat(),  # Convert datetime to string
+            'track_date_added': self.track_date_added.isoformat()  # Convert datetime to string
         }

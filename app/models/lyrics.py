@@ -26,3 +26,12 @@ class Lyrics(db.Model):
 
     def __repr__(self):
         return f"Lyrics[('{self.spotify_track_id}'), ('{self.detected_language}')]"
+    
+    def to_dict(self):
+        return {
+            'spotify_track_id' : self.spotify_track_id,
+            'original_lyrics' : self.original_lyrics,
+            'translated_lyrics' : self.translated_lyrics,
+            'detected_language' : self.detected_language,
+            'lyrics_date_added' : self.lyrics_date_added.isoformat()
+        }
