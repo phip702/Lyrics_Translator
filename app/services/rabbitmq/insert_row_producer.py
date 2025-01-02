@@ -69,6 +69,8 @@ def start_producer():
     except Exception as e:
         logging.error(f"Error in producer: {e}")
 
+
+
 if __name__ == "__main__":
     for i in range(1,10):
         send_to_rabbitmq("Testing", f'HEYO=={i}')

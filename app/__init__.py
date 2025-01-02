@@ -30,13 +30,13 @@ def make_celery(app):
     celery.conf.update(app.config)
     return celery
 
-def create_app():
+def create_app(): 
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     logging.getLogger('pika').setLevel(logging.WARNING)
 
     load_dotenv()
 
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path="", static_folder="static")
     app.secret_key = 'sjfa90u3214sfdfaJIS0324'  # Necessary for sessions
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
     app.config
@@ -66,7 +66,7 @@ def create_app():
 
 
 #C-TODO: message queue
-#TODO: implement async via threading for producing and consuming
+#C-TODO: implement async via threading for producing and consuming
 #TODO: testing
 #TODO: analytics --just use my old artifact, don't do anything more
 #TODO: push to Heroku

@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playlist Information</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
-    <h1>Displaying playlist: {{ playlist_name }}"</h1>
+    <h1>Displaying Playlist: {{ playlist_name }}</h1>
     {% if playlist_image %}
         <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;"><br>
     {% else %}
         <p>No playlist available.</p>
     {% endif %}
 
-    <table border=""1">
+    <table border="1">
         <thead>
             <tr>
                 <th>Track Image</th>
@@ -19,17 +23,22 @@
                 <th>Track Name</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tracks-tbody">
             {% for track in tracks %}
             <tr>
-                <td><img = src= "{{  track.get_track_image()  }}" alt="Track Image" width="100" height="100"></td>
-                <td>{{ track.get_track_artist() }}</td>
-                <td>{{ track.get_track_name() }}</td>
+                <td><img src="{{ track.track_image }}" alt="Track Image" width="100" height="100"></td>
+                <td>{{ track.track_artist }}</td>
+                <td>{{ track.track_name }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     
+    <button id="load-more-btn">Load More Tracks</button>
     <a href="/">Back to search</a>
+
+    <script>
+        var spotify_playlist_id = "{{ spotify_playlist_id }}";  // This will be replaced with the actual ID
+    </script>
 </body>
 </html>

@@ -46,6 +46,7 @@ def track_page(spotify_track_id):
     zipped_lyrics = zip(original_lyrics.split('\n'), translated_lyrics.split('\n'))
 
 
+    #* time was slightly pushed down by using RabbitMQ
     end_time = time.time() # delete
     logging.info(f"to_mid     = {mid_time - start_time}")
     logging.info(f"mid_to_end = {end_time - mid_time}") #* 85%ish of the time taken is done here
