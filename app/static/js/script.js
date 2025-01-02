@@ -1,5 +1,10 @@
 $(document).ready(function() {
+    let rowsCount = $('#tracks-tbody tr').length; 
     let offset = 50;  // Start with an offset of 50 for the first API request
+
+    if (rowsCount % 50 !== 0) { 
+        $('#load-more-btn').hide();  // Hide button if not a multiple of 50 because this means all tracks have been loaded
+    }
 
     $('#load-more-btn').click(function() {
         $.ajax({
@@ -19,14 +24,17 @@ $(document).ready(function() {
                         `);
                     });
 
-                    // Increase the offset by 50 for the next request
+                    // Increase the offset by 50 for the next request and update row count
                     offset += 50;
-                } else {
-                    alert('No more tracks available.');
+                    let updatedRowCount = $('#tracks-tbody tr').length;
+                    if (updatedRowCount % 50 !== 0) {
+                        $('#load-more-btn').hide();
+                    }
                 }
             },
-            error: function(error) {
-                alert('Error fetching tracks. Please try again.');
+
+            error: function(error) { // Spotify will never return a blank response, and don't want to implement logic for the case where user has a playlist of a multiple of 50. So will just tell user playlist might be already loaded
+                alert('Error fetching tracks. Please try again.\nSpotify playlist might already be fully loaded'); 
             }
         });
     });

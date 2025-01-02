@@ -67,7 +67,7 @@ def create_app():
 
 #C-TODO: message queue
 #C-TODO: implement async via threading for producing and consuming
-#TODO: playlist click track -> track page
+#C-TODO: playlist click track -> track page
 #TODO: integration testing
 #TODO: unit testing
 #TODO: analytics --just use my old artifact, don't do anything more
