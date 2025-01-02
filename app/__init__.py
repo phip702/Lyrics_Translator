@@ -67,11 +67,13 @@ def create_app():
 
 #C-TODO: message queue
 #C-TODO: implement async via threading for producing and consuming
-#TODO: testing
+#TODO: playlist click track -> track page
+#TODO: integration testing
+#TODO: unit testing
 #TODO: analytics --just use my old artifact, don't do anything more
-#TODO: push to Heroku
+#TODO: front end (HTML template/polymorphism, CSS)
+#TODO: live deploy
 #TODO: continuous integration?
 #TODO: continuous delivery?
 #TODO: production monitoring instrumenting
-#TODO: front end
 #TODO: make genius api call ignore 'romanized' versions

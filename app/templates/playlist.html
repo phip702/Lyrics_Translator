@@ -25,10 +25,11 @@
         </thead>
         <tbody id="tracks-tbody">
             {% for track in tracks %}
-            <tr>
+            <tr class = 'track-row'>
                 <td><img src="{{ track.track_image }}" alt="Track Image" width="100" height="100"></td>
                 <td>{{ track.track_artist }}</td>
                 <td>{{ track.track_name }}</td>
+                <td class="spotify-track-id" style="display: none;">{{ track.spotify_track_id }}</td> <!-- Hidden column for spotify_track_id -->
             </tr>
             {% endfor %}
         </tbody>
