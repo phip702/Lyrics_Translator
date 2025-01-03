@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Lyrics Translation Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Spotify Lyrics Translation Viewer</h1>
+    </header>
+
+    <div class="container">
+        <!-- Sidenav Section -->
+        <aside class="sidenav">
+            {% block sidenav %}
+                <!-- Default or empty sidenav if no playlist URL is set -->
+                <p>No Playlist Selected</p>
+            {% endblock %}
+        </aside>
+
+        <!-- Content Section -->
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Lyrics Translation Viewer</p>
+    </footer>
+</body>
+</html>

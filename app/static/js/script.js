@@ -6,6 +6,9 @@ $(document).ready(function() {
         $('#load-more-btn').hide();  // Hide button if not a multiple of 50 because this means all tracks have been loaded
     }
 
+    // Access the playlist ID from the data attribute of the button
+    var spotify_playlist_id = $('#load-more-btn').data('playlist-id');
+
     $('#load-more-btn').click(function() {
         $.ajax({
             url: `/api/fetch_tracks/${spotify_playlist_id}?offset=${offset}`,

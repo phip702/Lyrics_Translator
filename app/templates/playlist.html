@@ -1,12 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playlist Information</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</head>
+{% extends "base.html" %}
+
+
+{% block sidenav %}
+    {% if playlist_name %}
+        <h3>{{ playlist_name }}</h3>
+        {% if playlist_image %}
+            <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;">
+        {% endif %}
+        <ul>
+            {% for track in tracks %}
+                <li class="track-row" data-track-id="{{ track.spotify_track_id }}">
+                    <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
+                    <span>{{ track.track_name }} - {{ track.track_artist }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No playlist available. Please add a playlist URL.</p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
 <body>
     <h1>Displaying Playlist: {{ playlist_name }}</h1>
     {% if playlist_image %}
@@ -35,11 +49,14 @@
         </tbody>
     </table>
     
-    <button id="load-more-btn">Load More Tracks</button>
+    <button id="load-more-btn" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
     <a href="/">Back to search</a>
 
-    <script>
-        var spotify_playlist_id = "{{ spotify_playlist_id }}";  // This will be replaced with the actual ID
-    </script>
 </body>
 </html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{% endblock %}

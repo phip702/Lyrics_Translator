@@ -1,0 +1,23 @@
+<!-- app/templates/_playlist_sidenav.html -->
+{% if playlist_name %}
+<div id="playlist-sidenav">
+    <h2>{{ playlist_name }}</h2>
+    <img src="{{ playlist_image }}" alt="Playlist Image" style="width:100px;">
+    <ul>
+        {% for track in tracks %}
+        <li>
+            <a href="/track/{{ track.spotify_track_id }}">
+                <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
+                {{ track.track_name }} - {{ track.track_artist }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% else %}
+<!-- Will need to implement a box for user's to submit playlist URL-->
+<div id="playlist-sidenav">
+    <p>No playlist selected yet. Please input a valid playlist URL.</p>
+</div>
+{% endif %}
