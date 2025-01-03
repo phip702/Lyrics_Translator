@@ -1,62 +1,64 @@
 {% extends "base.html" %}
 
-
 {% block sidenav %}
-    {% if playlist_name %}
-        <h3>{{ playlist_name }}</h3>
-        {% if playlist_image %}
-            <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;">
+    <div id="sidenav">
+        {% if playlist_name %}
+            <h3>{{ playlist_name }}</h3>
+            {% if playlist_image %}
+                <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
+            {% endif %}
+            <ul id="sidenav-tracks">
+                {% for track in tracks %}
+                    <li class="track-row" data-track-id="{{ track.spotify_track_id }}">
+                        <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
+                        <div class="track-info">
+                            <span class="track-name">{{ track.track_name }}</span>
+                            <span class="track-artist">{{ track.track_artist }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            
+            <button id="load-more-sidenav" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
+        {% else %}
+            <p>No playlist available. Please add a playlist URL.</p>
         {% endif %}
-        <ul>
-            {% for track in tracks %}
-                <li class="track-row" data-track-id="{{ track.spotify_track_id }}">
-                    <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
-                    <span>{{ track.track_name }} - {{ track.track_artist }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No playlist available. Please add a playlist URL.</p>
-    {% endif %}
+    </div>
 {% endblock %}
 
 {% block content %}
-<body>
-    <h1>Displaying Playlist: {{ playlist_name }}</h1>
-    {% if playlist_image %}
-        <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;"><br>
-    {% else %}
-        <p>No playlist available.</p>
-    {% endif %}
+    <div id="main-content">
+        <h1>Displaying Playlist: {{ playlist_name }}</h1>
+        {% if playlist_image %}
+            <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;"><br>
+        {% else %}
+            <p>No playlist available.</p>
+        {% endif %}
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Track Image</th>
-                <th>Track Artist</th>
-                <th>Track Name</th>
-            </tr>
-        </thead>
-        <tbody id="tracks-tbody">
-            {% for track in tracks %}
-            <tr class = 'track-row'>
-                <td><img src="{{ track.track_image }}" alt="Track Image" width="100" height="100"></td>
-                <td>{{ track.track_artist }}</td>
-                <td>{{ track.track_name }}</td>
-                <td class="spotify-track-id" style="display: none;">{{ track.spotify_track_id }}</td> <!-- Hidden column for spotify_track_id -->
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
-    <button id="load-more-btn" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
-    <a href="/">Back to search</a>
-
-</body>
-</html>
-
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Track Image</th>
+                    <th>Track Artist</th>
+                    <th>Track Name</th>
+                </tr>
+            </thead>
+            <tbody id="tracks-tbody">
+                {% for track in tracks %}
+                <tr class="track-row">
+                    <td><img src="{{ track.track_image }}" alt="Track Image" width="100" height="100"></td>
+                    <td>{{ track.track_artist }}</td>
+                    <td>{{ track.track_name }}</td>
+                    <td class="spotify-track-id" style="display: none;">{{ track.spotify_track_id }}</td> <!-- Hidden column for spotify_track_id -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <button id="load-more-btn" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
+        <a href="/">Back to search</a>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
 {% endblock %}

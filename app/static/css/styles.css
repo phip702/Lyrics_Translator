@@ -1,9 +1,10 @@
-Basic reset and layout
+/* Basic reset and layout */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 
 /* Container for layout */
 body {
@@ -11,6 +12,7 @@ body {
     flex-direction: column; /* Arrange elements vertically */
     min-height: 100vh;
     font-family: Arial, sans-serif;
+    margin-left: 15rem; /* Push body content to the right of the sidenav (adjust this value as needed) */
 }
 
 /* Container for the main content */
@@ -19,38 +21,112 @@ body {
     flex-grow: 1;  /* Let the container grow to take up available space */
 }
 
-/* Sidenav styling */
-.sidenav {
-    position: fixed;  /* Fixed on the left side */
-    top: 0;
-    left: 0;
-    width: 250px;  /* Width of the sidenav */
-    height: 100vh;  /* Full height of the screen */
-    background-color: #333;  /* Dark background */
-    color: white;
-    padding: 20px;
-    overflow-y: auto;  /* Makes the sidenav scrollable if needed */
-    z-index: 1000;  /* Ensures the sidenav is above other elements */
+/* Styling for the main playlist image relative to the sidenav size */
+.playlist-image {
+    width: 100%;  /* Make the image width 100% of the sidenav width */
+    height: auto;  /* Height adjusts to maintain aspect ratio */
+    object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
+    border-radius: 8px;  /* Optional: Adds rounded corners */
+    margin-bottom: 2rem;  /* Adds some space below the image */
 }
 
-/* Content styling */
-.content {
-    margin-left: 250px;  /* Push content to the right to make room for the sidenav */
-    padding: 20px;
-    flex-grow: 1;  /* Let the content fill the remaining space */
-    min-height: 0;  /* Ensures the content area shrinks when needed */
+/* Sidenav container */
+#sidenav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20rem;  /* Fixed width for the sidenav */
+    background-color: #121212;  /* Dark background */
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;  /* Full height */
+    overflow-y: auto;  /* Makes it scrollable if needed */
+    z-index: 1000;
+}
+
+/* Table inside the sidenav takes up the full width of the sidenav */
+.sidenav table {
+    width: 100%;  /* Table takes full width of sidenav */
+    border-collapse: collapse;
+    margin: 0;  /* Remove any margin around the table */
+    padding: 0;  /* Remove any padding */
+    flex-grow: 1;  /* Makes the table stretch if needed */
+}
+
+/* Table cell and row styles */
+.sidenav th, .sidenav td {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+
+/* Styling for the track row in the table */
+.sidenav .track-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    width: 100%;  /* Ensures track rows take full width */
+}
+
+.sidenav .track-row img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Ensure track name and artist are in a vertical stack */
+.sidenav .track-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* Stack the track name and artist vertically */
+    justify-content: center; /* Align items centrally */
+}
+
+/* Increase font size of track name */
+.sidenav .track-name {
+    font-size: 1em;  /* Makes the track name 1.8 times bigger */
+    font-weight: bold;  /* Optional: makes the track name bold */
+    color: #fff;
+}
+.sidenav .track-row:hover .track-name {
+    color: #1ed760;  /* Accent color on hover */
+    transition: color 0.3s ease;  /* Smooth transition for color change */
+}
+
+/* Styling for track artist */
+.sidenav .track-artist {
+    font-size: .8em;  /* Default size for track artist */
+    color: #b3b3b3;  /* Lighter color for the artist */
+}
+
+
+
+/* Main content area */
+#main-content {
+    margin-left: 2rem; /* Space for the sidenav */
+    padding: 2rem;
+    flex-grow: 1;
+    min-height: 0;
+    margin-top: 2rem; /* Optional: Adds space between sidenav and main content */
 }
 
 /* Optional: Adding some space for the header */
 header {
-    padding: 20px;
+    padding: 2rem;
     background-color: #f5f5f5;
     text-align: center;
 }
 
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 1rem;
     background-color: #f1f1f1;
     position: relative;
     margin-top: auto; /* Push the footer to the bottom of the page */
