@@ -42,4 +42,3 @@ def home():
             return render_template('error.html', error_message= f"Invalid Spotify URL. Please enter a valid URL. You entered: {user_input_url}")
     
     return render_template('main.html')
-

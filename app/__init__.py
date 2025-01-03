@@ -4,6 +4,7 @@ from .extensions import db, migrate
 from .routes.main import main
 from .routes.playlist import playlist
 from .routes.track import track
+from .routes.analytics import analytics
 #delete from .models import Track, Lyrics
 from dotenv import load_dotenv
 from sqlalchemy import inspect
@@ -39,6 +40,7 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(playlist)
     app.register_blueprint(track)
+    app.register_blueprint(analytics)
 
     
     with app.app_context():
@@ -58,12 +60,14 @@ def create_app():
 #C-TODO: playlist click track -> track page
 #C-TODO: integration testing
 #C-TODO: unit testing
-#TODO: analytics --just use my old artifact, don't do anything more
-#TODO: front end (HTML template/polymorphism, CSS)
+#C-TODO: analytics --just use my old artifact, don't do anything more
 #TODO: reset requirement.txt to remove things like Celery
+#TODO: front end (HTML template/polymorphism, CSS)
+#TODO: Add buffering/loading indication
 #TODO: live deploy
 #TODO: continuous integration?
 #TODO: continuous delivery?
 #TODO: production monitoring instrumenting
-#TODO: Add buffering/loading indication
-#TODO: make genius api call ignore 'romanized' versions
+
+#TODO: make genius api call ignore 'romanized' versions; enforce language selection by user
+#TODO: make playlist become side menu after user selects track
