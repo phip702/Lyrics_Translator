@@ -35,15 +35,3 @@ services:
       - .:/app  # Mount the current directory to /app inside the container
     depends_on:
       - rabbitmq
-
-  # celery:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   command: celery -A app.services.tasks.celery worker  # Command to start the Celery worker
-  #   depends_on:
-  #     - rabbitmq
-  #     - flask-app
-  #   environment:
-  #     - CELERY_BROKER_URL=pyamqp://guest@rabbitmq//
-  #     - CELERY_RESULT_BACKEND=rpc://

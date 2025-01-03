@@ -16,7 +16,6 @@ track = Blueprint('track', __name__)
 
 @track.route('/track/<spotify_track_id>', methods= ['GET'])
 def track_page(spotify_track_id):
-    start_time = time.time() #delete 
     logging.debug((f"spotify_track_id: {spotify_track_id}"))
 
     track_name, track_artist, track_image = check_track_row_exists(spotify_track_id)
@@ -29,7 +28,7 @@ def track_page(spotify_track_id):
         new_track = Track(spotify_track_id = str(spotify_track_id), track_name=track_name, track_artist=track_artist, track_image = track_image)
         insert_row_producer(new_track) #TODO: test but will have to keep using new tracks not in DB
 
-    mid_time = time.time() #delete  
+     #* 85%ish of the time taken is done here until zipped_lyrics  
     original_lyrics, translated_lyrics, _ = check_lyrics_row_exists(spotify_track_id)
     if original_lyrics is None: # get lyrics and add to db
         original_lyrics = get_song_lyrics(track_name, track_artist)
@@ -44,12 +43,5 @@ def track_page(spotify_track_id):
         insert_row_producer(new_lyrics) #TODO: don't want to insert 'Couldn't get lyrics' or the like... or do I?? Right now, it's breaking by returning error.html
 
     zipped_lyrics = zip(original_lyrics.split('\n'), translated_lyrics.split('\n'))
-
-
-    #* time was slightly pushed down by using RabbitMQ
-    end_time = time.time() # delete
-    logging.info(f"to_mid     = {mid_time - start_time}")
-    logging.info(f"mid_to_end = {end_time - mid_time}") #* 85%ish of the time taken is done here
-    logging.info(f"total_time = {end_time - start_time}")
 
     return render_template('track.html', track_name=track_name, track_artist=track_artist, track_image=track_image, zipped_lyrics=zipped_lyrics) 

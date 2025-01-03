@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 import requests
 from bs4 import BeautifulSoup
-from .lyrics_handler import trim_lyrics
+from ..handlers.lyrics_handler import trim_lyrics
 import logging
 import json
 

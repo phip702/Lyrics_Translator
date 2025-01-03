@@ -7,7 +7,6 @@ from .routes.track import track
 #delete from .models import Track, Lyrics
 from dotenv import load_dotenv
 from sqlalchemy import inspect
-from celery import Celery
 from threading import Thread
 from app.services.rabbitmq.insert_row_producer import start_producer
 from app.services.rabbitmq.insert_row_consumer import start_consumer
@@ -19,16 +18,6 @@ def run_rabbitmq_services():
     producer_thread.start()
     consumer_thread.start()
 
-
-
-def make_celery(app):
-    celery = Celery(
-        app.import_name,
-        backend=app.config['CELERY_RESULT_BACKEND'],
-        broker=app.config['CELERY_BROKER_URL']
-    )
-    celery.conf.update(app.config)
-    return celery
 
 def create_app(): 
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -60,20 +49,21 @@ def create_app():
 
     run_rabbitmq_services()
 
-    #celery = make_celery(app) 
     print("APP INITIALIZED")
-    return app#, celery
+    return app
 
 
 #C-TODO: message queue
 #C-TODO: implement async via threading for producing and consuming
 #C-TODO: playlist click track -> track page
-#TODO: integration testing
-#TODO: unit testing
+#C-TODO: integration testing
+#C-TODO: unit testing
 #TODO: analytics --just use my old artifact, don't do anything more
 #TODO: front end (HTML template/polymorphism, CSS)
+#TODO: reset requirement.txt to remove things like Celery
 #TODO: live deploy
 #TODO: continuous integration?
 #TODO: continuous delivery?
 #TODO: production monitoring instrumenting
+#TODO: Add buffering/loading indication
 #TODO: make genius api call ignore 'romanized' versions
