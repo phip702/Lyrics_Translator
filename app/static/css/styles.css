@@ -1,5 +1,5 @@
 html, body {
-    background-color: #121212;
+    background-color: #010101;
     color: #fff;
     height: 100%;
     margin: 0;
@@ -7,15 +7,19 @@ html, body {
     box-sizing: border-box;
 }
 
+main {
+    background-color: #121212;
+}
 body {
     display: grid;
     grid-template-areas:
     "topbar          topbar"
     "sidenav         main"
     "footer          footer";
-    grid-template-columns: minmax(100px, 20%)  auto;
+    grid-template-columns: minmax(100px, 25%)  auto;
     grid-template-rows: 5% 90% 5%;
-    grid-gap: 1rem;
+    grid-row-gap: .1rem;
+    grid-column-gap: .5rem;
     height: 100vh;
 }
 
@@ -28,18 +32,28 @@ footer  {grid-area: footer;  }
     display: contents; /* This removes the container from the layout */
 }
 
-#playlist-sidenav {
-    background-color: #292929;
-    overflow-x: auto;
-    overflow-y: auto;
-    padding: 10px;
-    border-radius: .5rem;
-}
-
 .content {
     width: 100%;
     overflow-y: auto;
     height: 100%;
+}
+
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+#playlist-sidenav {
+    background-color: #121212;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: .5rem;
+    flex-direction: column;
 }
 
 #playlist-sidenav .playlist-image {
@@ -50,6 +64,122 @@ footer  {grid-area: footer;  }
     margin-bottom: 2rem;  /* Adds some space below the image */
 }
 
+
+#playlist-sidenav .track-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+}
+
+#playlist-sidenav .track-row img{
+    padding: .5rem;
+    border-radius: 1rem;
+}
+/* Ensure track name and artist are in a vertical stack */
+#sidenav-tracks .track-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* Stack the track name and artist vertically */
+    justify-content: center; /* Align items centrally */
+}
+
+.track-name {
+    font-size: 1.3rem; 
+    font-weight: bold;  
+    color: #fff;
+}
+
+ .track-artist {
+    font-size: 1rem;  
+    color: #b3b3b3;  
+}
+
+
+
+
+
+
+
+
+/* Main Content */
+.playlist-header {
+    display: flex;
+    align-items: center;
+    font-size: x-large;
+}
+
+.playlist-header img {
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
+    border-radius: .5rem;  /* Optional: Adds rounded corners */
+    margin: 2rem;
+}
+
+#main-content {
+    background: linear-gradient(to bottom, #193c1f, #121212); /* Green to dark gradient */
+    padding: 20px; /* Adds padding inside the container */
+    border-radius: .5rem; /* Optional: Adds rounded corners */
+    height: 40%;
+}
+
+#main-content table {
+    width: 100%; /* Optional: Ensures the table takes up full width */
+    border: none;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+#main-content table thead {
+    position: static;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    box-shadow: inset 0 -2px 0 #333;
+}
+
+#main-content table thead tr th:nth-child(3){
+    color: #b3b3b3
+}
+
+#main-content th, td {
+    border: none; /* Removes borders from table headers and data cells */
+    padding: 10px; /* Optional: Adds padding for better spacing inside cells */
+    text-align: left; /* Horizontal */
+    vertical-align: center; /* Vertical */
+}
+
+#main-content tr {
+    border: none;
+}
+
+#main-content table img {
+    max-width: 100rem;
+    height: auto;
+    object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
+    border-radius: .5rem;  /* Optional: Adds rounded corners */
+}
+
+
+
+
+/* Mouse and Scrolling */
+#playlist-sidenav .track-row:hover .track-name,
+#main-content table thead tr th:nth-child(2):hover, 
+#main-content table thead tr th:nth-child(3):hover,
+#main-content table tbody tr:hover td:nth-child(2) {
+    color: #1ed760;  /* Accent color on hover */
+    transition: color 0.3s ease;  /* Smooth transition for color change */
+}
+
+#main-content table tbody tr:hover {
+    background-color: #292929;  /* Light grey background color on hover */
+    transition: background-color 0.3s ease;  /* Smooth transition for background color */
+}
 
 /* Customize the scrollbar for both #playlist-sidenav and .content */
 #playlist-sidenav::-webkit-scrollbar,

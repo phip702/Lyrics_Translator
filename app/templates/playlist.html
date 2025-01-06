@@ -6,27 +6,30 @@
 
 {% block content %}
     <div id="main-content">
-        <h1>Displaying Playlist: {{ playlist_name }}</h1>
-        {% if playlist_image %}
-            <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;" class="content-main-image"><br>
-        {% else %}
-            <p>No playlist available.</p>
-        {% endif %}
+        <div class="playlist-header"> 
+            {% if playlist_image %}
+                <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;" class="content-main-image"><br>
+            {% else %}
+                <p>No playlist available.</p>
+            {% endif %}
+            <h1>Displaying Playlist: <br>{{ playlist_name }}</h1>
+        </div>
 
+        
         <table border="1">
             <thead>
                 <tr>
-                    <th>Track Image</th>
-                    <th>Track Artist</th>
-                    <th>Track Name</th>
+                    <th class="title">Title</th>
+                    <th class="track-artist">Track Artist</th>
+                    <th class="track-name">Track Name</th>
                 </tr>
             </thead>
-            <tbody id="tracks-tbody">
+            <tbody id="tracks-body">
                 {% for track in tracks %}
                 <tr class="track-row">
                     <td><img src="{{ track.track_image }}" alt="Track Image" width="100" height="100"></td>
-                    <td>{{ track.track_artist }}</td>
-                    <td>{{ track.track_name }}</td>
+                    <td class="track-name">{{ track.track_name }}</td>
+                    <td class="track-artist">{{ track.track_artist }}</td>
                     <td class="spotify-track-id" style="display: none;">{{ track.spotify_track_id }}</td> <!-- Hidden column for spotify_track_id -->
                 </tr>
                 {% endfor %}

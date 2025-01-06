@@ -7,7 +7,7 @@
     <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
     <div id="sidenav-tracks">
         {% for track in tracks %}
-            <a class="track-row" href="/track/{{ track.spotify_track_id }}">
+            <a class="track-row" href="/track/{{ track.spotify_track_id }}" display=none>
                 <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
                 <div class="track-info">
                     <span class="track-name">{{ track.track_name }}</span>
