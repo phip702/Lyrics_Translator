@@ -19,7 +19,7 @@ $(document).ready(function() {
         })();
 
 
-        
+
 
     let rowsCount = $('#tracks-tbody tr').length; 
     let offset = 50;  // Start with an offset of 50 for the first API request
@@ -27,8 +27,6 @@ $(document).ready(function() {
     if (rowsCount % 50 !== 0) { 
         $('#load-more-btn').hide();  // Hide button if not a multiple of 50 because this means all tracks have been loaded
     }
-
-    // Access the playlist ID from the data attribute of the button
     var spotify_playlist_id = $('#load-more-btn').data('playlist-id');
 
     // Load more for the body
@@ -66,13 +64,7 @@ $(document).ready(function() {
     });
 
 
-    // reroute to track page when user clicks on a track row
-    // this is no longer making the inserted rows clickable
-    $('#tracks-tbody').on("click", ".track-row", function() {
-        var spotify_track_id = $(this).find(".track-id").text();  // Get the track ID from the hidden column
-        console.log("Track ID:", spotify_track_id);
-        window.location.href = "/track/" + spotify_track_id; // Redirect to track page
-    });
+
 
 
 
@@ -117,23 +109,17 @@ $(document).ready(function() {
             }
         });
     });
-
-    $(document).ready(function () {
-        // Toggle sidenav visibility
-        $('#sidenav-toggle').click(function () {
-            let sidenav = $('#sidenav');
-            if (sidenav.hasClass('collapsed')) {
-                // Expand the sidenav
-                sidenav.removeClass('collapsed').addClass('expanded');
-                $('#main-content').addClass('sidenav-expanded'); // Optional: adjust main content for expanded sidenav
-            } else {
-                // Collapse the sidenav
-                sidenav.removeClass('expanded').addClass('collapsed');
-                $('#main-content').removeClass('sidenav-expanded'); // Optional: reset main content
-            }
-        });
-    });
     
 });
 
 
+// Add event listeners to all table rows
+document.querySelectorAll('.track-row').forEach(row => {
+    row.addEventListener('click', function() {
+    // Get the Spotify track ID from the hidden cell
+    const trackId = this.querySelector('.spotify-track-id').innerText;
+
+    // Redirect to the track page using the track ID
+    window.location.href = `/track/${trackId}`;
+    });
+});
