@@ -1,133 +1,74 @@
-/* Basic reset and layout */
-* {
+html, body {
+    background-color: #121212;
+    color: #fff;
+    height: 100%;
     margin: 0;
-    padding: 0;
+    overflow-y: hidden;
     box-sizing: border-box;
 }
 
-
-/* Container for layout */
 body {
-    display: flex;
-    flex-direction: column; /* Arrange elements vertically */
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    margin-left: 15rem; /* Push body content to the right of the sidenav (adjust this value as needed) */
+    display: grid;
+    grid-template-areas:
+    "topbar          topbar"
+    "sidenav         main"
+    "footer          footer";
+    grid-template-columns: minmax(100px, 20%)  auto;
+    grid-template-rows: 5% 90% 5%;
+    grid-gap: 1rem;
+    height: 100vh;
 }
 
-/* Container for the main content */
+header  {grid-area: topbar;  }
+nav     {grid-area: sidenav;  } /* could be an aside instead*/
+main    {grid-area: main;  } 
+footer  {grid-area: footer;  }
+
 .container {
-    display: flex;
-    flex-grow: 1;  /* Let the container grow to take up available space */
+    display: contents; /* This removes the container from the layout */
 }
 
-/* Styling for the main playlist image relative to the sidenav size */
-.playlist-image {
+#playlist-sidenav {
+    background-color: #292929;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: .5rem;
+}
+
+.content {
+    width: 100%;
+    overflow-y: auto;
+    height: 100%;
+}
+
+#playlist-sidenav .playlist-image {
     width: 100%;  /* Make the image width 100% of the sidenav width */
     height: auto;  /* Height adjusts to maintain aspect ratio */
     object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
-    border-radius: 8px;  /* Optional: Adds rounded corners */
+    border-radius: .5rem;  /* Optional: Adds rounded corners */
     margin-bottom: 2rem;  /* Adds some space below the image */
 }
 
-/* Sidenav container */
-#sidenav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 20rem;  /* Fixed width for the sidenav */
-    background-color: #121212;  /* Dark background */
-    color: white;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;  /* Full height */
-    overflow-y: auto;  /* Makes it scrollable if needed */
-    z-index: 1000;
-}
-
-/* Table inside the sidenav takes up the full width of the sidenav */
-.sidenav table {
-    width: 100%;  /* Table takes full width of sidenav */
-    border-collapse: collapse;
-    margin: 0;  /* Remove any margin around the table */
-    padding: 0;  /* Remove any padding */
-    flex-grow: 1;  /* Makes the table stretch if needed */
-}
-
-/* Table cell and row styles */
-.sidenav th, .sidenav td {
-    padding: 10px;
-    border-bottom: 1px solid #333;
-    text-align: left;
-}
-
-/* Styling for the track row in the table */
-.sidenav .track-row {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #333;
-    cursor: pointer;
-    width: 100%;  /* Ensures track rows take full width */
-}
-
-.sidenav .track-row img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-/* Ensure track name and artist are in a vertical stack */
-.sidenav .track-info {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column; /* Stack the track name and artist vertically */
-    justify-content: center; /* Align items centrally */
-}
-
-/* Increase font size of track name */
-.sidenav .track-name {
-    font-size: 1em;  /* Makes the track name 1.8 times bigger */
-    font-weight: bold;  /* Optional: makes the track name bold */
-    color: #fff;
-}
-.sidenav .track-row:hover .track-name {
-    color: #1ed760;  /* Accent color on hover */
-    transition: color 0.3s ease;  /* Smooth transition for color change */
-}
-
-/* Styling for track artist */
-.sidenav .track-artist {
-    font-size: .8em;  /* Default size for track artist */
-    color: #b3b3b3;  /* Lighter color for the artist */
-}
 
 
 
-/* Main content area */
-#main-content {
-    margin-left: 2rem; /* Space for the sidenav */
-    padding: 2rem;
-    flex-grow: 1;
-    min-height: 0;
-    margin-top: 2rem; /* Optional: Adds space between sidenav and main content */
+/* Customize the scrollbar for both #playlist-sidenav and .content */
+#playlist-sidenav::-webkit-scrollbar,
+.content::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
 }
 
-/* Optional: Adding some space for the header */
-header {
-    padding: 2rem;
-    background-color: #f5f5f5;
-    text-align: center;
+/* Customize the thumb (the draggable part of the scrollbar) for both #playlist-sidenav and .content */
+#playlist-sidenav::-webkit-scrollbar-thumb,
+.content::-webkit-scrollbar-thumb {
+    background-color: #7c7c7c; /* Set the color of the scrollbar thumb */
+    border-radius: .5rem; /* Add rounded corners to the thumb */
 }
 
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #f1f1f1;
-    position: relative;
-    margin-top: auto; /* Push the footer to the bottom of the page */
+/* Customize the thumb when hovering for both #playlist-sidenav and .content */
+#playlist-sidenav::-webkit-scrollbar-thumb:hover,
+.content::-webkit-scrollbar-thumb:hover {
+    background-color: #b3b3b3; /* Change the color when hovering */
 }
+

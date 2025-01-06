@@ -7,6 +7,7 @@ from .routes.track import track
 from .routes.analytics import analytics
 #delete from .models import Track, Lyrics
 from dotenv import load_dotenv
+import os
 from sqlalchemy import inspect
 from threading import Thread
 from app.services.rabbitmq.insert_row_producer import start_producer
@@ -25,12 +26,16 @@ def create_app():
     logging.getLogger('pika').setLevel(logging.WARNING)
 
     load_dotenv()
+    print(f"FLASK ENV: {os.getenv("FLASK_ENV")}")
 
     app = Flask(__name__, static_url_path="", static_folder="static")
     app.secret_key = 'sjfa90u3214sfdfaJIS0324'  # Necessary for sessions
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-    app.config
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     #app.app_context().push()
 
@@ -41,7 +46,6 @@ def create_app():
     app.register_blueprint(playlist)
     app.register_blueprint(track)
     app.register_blueprint(analytics)
-
     
     with app.app_context():
         db.create_all()  # Initializes tables that do not already exist
@@ -53,6 +57,7 @@ def create_app():
 
     print("APP INITIALIZED")
     return app
+
 
 
 #C-TODO: message queue

@@ -1,19 +1,23 @@
 <!-- app/templates/_playlist_sidenav.html -->
 {% if playlist_name %}
-<div id="playlist-sidenav">
+<nav id="playlist-sidenav">
+    <i id="toggle-sidebar"class="bx bx-chevron-right toggle"></i>
+
     <h2>{{ playlist_name }}</h2>
-    <img src="{{ playlist_image }}" alt="Playlist Image" style="width:100px;">
-    <ul>
+    <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
+    <div id="sidenav-tracks">
         {% for track in tracks %}
-        <li>
-            <a href="/track/{{ track.spotify_track_id }}">
+            <a class="track-row" href="/track/{{ track.spotify_track_id }}">
                 <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
-                {{ track.track_name }} - {{ track.track_artist }}
+                <div class="track-info">
+                    <span class="track-name">{{ track.track_name }}</span>
+                    <span class="track-artist">{{ track.track_artist }}</span>
+                </div>
             </a>
-        </li>
         {% endfor %}
-    </ul>
-</div>
+        </div>
+    <button id="load-more-sidenav" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
+</nav>
 
 {% else %}
 <!-- Will need to implement a box for user's to submit playlist URL-->

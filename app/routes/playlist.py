@@ -38,6 +38,7 @@ def fetch_tracks_api(spotify_playlist_id):
     # Filter out only the necessary fields (name, artist, image) from each track
     filtered_tracks = [
         {
+            'spotify_track_id': track.spotify_track_id,
             'track_name': track.track_name,
             'track_artist': track.track_artist,
             'track_image': track.track_image

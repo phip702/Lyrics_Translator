@@ -1,36 +1,14 @@
 {% extends "base.html" %}
 
 {% block sidenav %}
-    <div id="sidenav">
-        {% if playlist_name %}
-            <h3>{{ playlist_name }}</h3>
-            {% if playlist_image %}
-                <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
-            {% endif %}
-            <ul id="sidenav-tracks">
-                {% for track in tracks %}
-                    <li class="track-row" data-track-id="{{ track.spotify_track_id }}">
-                        <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
-                        <div class="track-info">
-                            <span class="track-name">{{ track.track_name }}</span>
-                            <span class="track-artist">{{ track.track_artist }}</span>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-            
-            <button id="load-more-sidenav" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
-        {% else %}
-            <p>No playlist available. Please add a playlist URL.</p>
-        {% endif %}
-    </div>
+    {% include "_playlist_sidenav.html" %}
 {% endblock %}
 
 {% block content %}
     <div id="main-content">
         <h1>Displaying Playlist: {{ playlist_name }}</h1>
         {% if playlist_image %}
-            <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;"><br>
+            <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;" class="content-main-image"><br>
         {% else %}
             <p>No playlist available.</p>
         {% endif %}

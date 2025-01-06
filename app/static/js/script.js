@@ -1,4 +1,26 @@
 $(document).ready(function() {
+
+        // BrowserSync script for live reloading
+        (function() {
+            try {
+                var script = document.createElement('script');
+                if ('async') {
+                    script.async = true;
+                }
+                script.src = 'http://localhost:3001/browser-sync/browser-sync-client.js?v=3.0.3'.replace("HOST", location.hostname);
+                if (document.body) {
+                    document.body.appendChild(script);
+                } else if (document.head) {
+                    document.head.appendChild(script);
+                }
+            } catch (e) {
+                console.error("Browsersync: could not append script tag", e);
+            }
+        })();
+
+
+        
+
     let rowsCount = $('#tracks-tbody tr').length; 
     let offset = 50;  // Start with an offset of 50 for the first API request
 
@@ -43,6 +65,18 @@ $(document).ready(function() {
         });
     });
 
+
+    // reroute to track page when user clicks on a track row
+    // this is no longer making the inserted rows clickable
+    $('#tracks-tbody').on("click", ".track-row", function() {
+        var spotify_track_id = $(this).find(".track-id").text();  // Get the track ID from the hidden column
+        console.log("Track ID:", spotify_track_id);
+        window.location.href = "/track/" + spotify_track_id; // Redirect to track page
+    });
+
+
+
+    // sidenav always displaying load more button
     // Sidenav Load More functionality
     let sidenavOffset = 50;  // Start with an offset of 50 for the sidenav
     var spotify_playlist_id_sidenav = $('#load-more-sidenav').data('playlist-id');
@@ -57,13 +91,13 @@ $(document).ready(function() {
                     // Append the new tracks to the sidenav's track list
                     response.forEach(track => {
                         $('#sidenav-tracks').append(`
-                            <li class="track-row" data-track-id="${track.spotify_track_id}">
-                                <img src="${track.track_image}" alt="Track Image" width="50" height="50">
-                                <div class="track-info">
-                                    <span class="track-name">${track.track_name}</span>
-                                    <span class="track-artist">${track.track_artist}</span>
-                                </div>
-                            </li>
+                                <a class="track-row" href="/track/${track.spotify_track_id}">
+                                    <img src="${track.track_image}" alt="Track Image" width="50" height="50">
+                                    <div class="track-info">
+                                        <span class="track-name">${track.track_name}</span>
+                                        <span class="track-artist">${track.track_artist}</span>
+                                    </div>
+                                </a>
                         `);
                     });
 
@@ -84,17 +118,22 @@ $(document).ready(function() {
         });
     });
 
-    // reroute to track page when user clicks on a track row
-    $(".track-row").on("click", function() {
-        var spotify_track_id = $(this).find(".spotify-track-id").text();  // Get the track ID from the hidden column
-        console.log("Track ID:", spotify_track_id);
-        window.location.href = "/track/" + spotify_track_id; // Redirect to track page
+    $(document).ready(function () {
+        // Toggle sidenav visibility
+        $('#sidenav-toggle').click(function () {
+            let sidenav = $('#sidenav');
+            if (sidenav.hasClass('collapsed')) {
+                // Expand the sidenav
+                sidenav.removeClass('collapsed').addClass('expanded');
+                $('#main-content').addClass('sidenav-expanded'); // Optional: adjust main content for expanded sidenav
+            } else {
+                // Collapse the sidenav
+                sidenav.removeClass('expanded').addClass('collapsed');
+                $('#main-content').removeClass('sidenav-expanded'); // Optional: reset main content
+            }
+        });
     });
-
-    // Same for the sidenav track rows
-    $(".sidenav .track-row").on("click", function() {
-        var spotify_track_id = $(this).data("track-id");  // Get the track ID from the data attribute
-        console.log("Track ID from sidenav:", spotify_track_id);
-        window.location.href = "/track/" + spotify_track_id; // Redirect to track page
-    });
+    
 });
+
+

@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify Lyrics Translation Viewer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- BoxIcons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
-<body>
+<body class="loaded-content">
     <header>
-        <h1>Spotify Lyrics Translation Viewer</h1>
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <h1>Spotify Lyrics Translation Viewer</h1>
+        </a>
     </header>
 
     <div class="container">
         <!-- Sidenav Section -->
-        <aside class="sidenav">
-            {% block sidenav %}
-                <!-- Default or empty sidenav if no playlist URL is set -->
-                <p>No Playlist Selected</p>
-            {% endblock %}
-        </aside>
+        {% block sidenav %}
+            <!-- Default or empty sidenav if no playlist URL is set -->
+            <p>No Playlist Selected</p>
+        {% endblock %}
 
         <!-- Content Section -->
         <main class="content">
@@ -26,8 +29,8 @@
         </main>
     </div>
 
-    <footer>
-        <p>&copy; 2025 Lyrics Translation Viewer</p>
+    <footer class="footer">
+        <p>&copy; 2025 Lyrics Translation Viewer jibberish to fill space alskj;flkajs;ldfjsd;lfksa</p>
     </footer>
 </body>
 </html>

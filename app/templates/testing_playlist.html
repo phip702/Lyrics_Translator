@@ -1,0 +1,141 @@
+<html lang="en"><script id="youtube-hd-fjdmkanbdloodhegphphhklnjfngoffa">var ythdlog = () => {};;var ythderror = () => {};</script><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Lyrics Translation Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}>
+</head>
+<body data-new-gr-c-s-check-loaded="14.1215.0" data-gr-ext-installed="">
+    <header>
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <h1>Spotify Lyrics Translation Viewer</h1>
+        </a>
+    </header>
+
+    <div class="container">
+        <!-- Sidenav Section -->
+        <aside class="sidenav">
+            
+    <!-- app/templates/_playlist_sidenav.html -->
+
+<nav id="playlist-sidenav">
+    <input type="checkbox" id="sidebar-active">
+    <label for="sidebar-active" class="open-sidebar-button">
+        <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#5f6368"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"></path></svg>
+    </label> 
+
+    <div class="links-container">
+        <label for="sidebar-active" class="close-sidebar-button">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"></path></svg>
+        </label>
+
+    </div>
+    <h2>Language Testing</h2>
+    <img class="playlist-image" src="https://mosaic.scdn.co/640/ab67616d00001e02194331547eaabec350413225ab67616d00001e02519266cd05491a5b5bc22d1eab67616d00001e02cf0c82a1b6e15eb079ab4b15ab67616d00001e02d8243a13e6f41310a5fa7b96" alt="Playlist Image">
+    <div id="sidenav-tracks">
+        
+            <a class="track-row" href="/track/278kSqsZIiYp8p3QjYAqa8">
+                <img src="https://i.scdn.co/image/ab67616d0000b273519266cd05491a5b5bc22d1e" alt="Track Image" width="50" height="50">
+                <div class="track-info">
+                    <span class="track-name">NI BIEN NI MAL</span>
+                    <span class="track-artist">Bad Bunny</span>
+                </div>
+            </a>
+        
+            <a class="track-row" href="/track/2vrpcQNg6itmgVZWsNjWe0">
+                <img src="https://i.scdn.co/image/ab67616d0000b273194331547eaabec350413225" alt="Track Image" width="50" height="50">
+                <div class="track-info">
+                    <span class="track-name">Un Año</span>
+                    <span class="track-artist">Sebastian Yatra</span>
+                </div>
+            </a>
+        
+            <a class="track-row" href="/track/6ifUES3keWjwXgae8pXI3o">
+                <img src="https://i.scdn.co/image/ab67616d0000b273d8243a13e6f41310a5fa7b96" alt="Track Image" width="50" height="50">
+                <div class="track-info">
+                    <span class="track-name">Me Rehúso</span>
+                    <span class="track-artist">Danny Ocean</span>
+                </div>
+            </a>
+        
+            <a class="track-row" href="/track/2SL6pRmKNyug2DqhoVjVXq">
+                <img src="https://i.scdn.co/image/ab67616d0000b273cf0c82a1b6e15eb079ab4b15" alt="Track Image" width="50" height="50">
+                <div class="track-info">
+                    <span class="track-name">睨めっ娘</span>
+                    <span class="track-artist">友成空</span>
+                </div>
+            </a>
+        
+        </div>
+    <button id="load-more-sidenav" data-playlist-id="4lvuWO8blWHWWGj3LfVzvD">Load More Tracks</button>
+</nav>
+
+
+    </aside></div>
+
+        
+
+        <!-- Content Section -->
+        <main class="content">
+            
+    <div id="main-content">
+        <h1>Displaying Playlist: Language Testing</h1>
+        
+            <img src="https://mosaic.scdn.co/640/ab67616d00001e02194331547eaabec350413225ab67616d00001e02519266cd05491a5b5bc22d1eab67616d00001e02cf0c82a1b6e15eb079ab4b15ab67616d00001e02d8243a13e6f41310a5fa7b96" alt="Playlist Image" style="width:300px;"><br>
+        
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Track Image</th>
+                    <th>Track Artist</th>
+                    <th>Track Name</th>
+                </tr>
+            </thead>
+            <tbody id="tracks-tbody">
+                
+                <tr class="track-row">
+                    <td><img src="https://i.scdn.co/image/ab67616d0000b273519266cd05491a5b5bc22d1e" alt="Track Image" width="100" height="100"></td>
+                    <td>Bad Bunny</td>
+                    <td>NI BIEN NI MAL</td>
+                    <td class="spotify-track-id" style="display: none;">278kSqsZIiYp8p3QjYAqa8</td> <!-- Hidden column for spotify_track_id -->
+                </tr>
+                
+                <tr class="track-row">
+                    <td><img src="https://i.scdn.co/image/ab67616d0000b273194331547eaabec350413225" alt="Track Image" width="100" height="100"></td>
+                    <td>Sebastian Yatra</td>
+                    <td>Un Año</td>
+                    <td class="spotify-track-id" style="display: none;">2vrpcQNg6itmgVZWsNjWe0</td> <!-- Hidden column for spotify_track_id -->
+                </tr>
+                
+                <tr class="track-row">
+                    <td><img src="https://i.scdn.co/image/ab67616d0000b273d8243a13e6f41310a5fa7b96" alt="Track Image" width="100" height="100"></td>
+                    <td>Danny Ocean</td>
+                    <td>Me Rehúso</td>
+                    <td class="spotify-track-id" style="display: none;">6ifUES3keWjwXgae8pXI3o</td> <!-- Hidden column for spotify_track_id -->
+                </tr>
+                
+                <tr class="track-row">
+                    <td><img src="https://i.scdn.co/image/ab67616d0000b273cf0c82a1b6e15eb079ab4b15" alt="Track Image" width="100" height="100"></td>
+                    <td>友成空</td>
+                    <td>睨めっ娘</td>
+                    <td class="spotify-track-id" style="display: none;">2SL6pRmKNyug2DqhoVjVXq</td> <!-- Hidden column for spotify_track_id -->
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        <button id="load-more-btn" data-playlist-id="4lvuWO8blWHWWGj3LfVzvD" style="display: none;">Load More Tracks</button>
+        <a href="/">Back to search</a>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/script.js"></script>
+
+        </main>
+    
+
+    <footer>
+        <p>© 2025 Lyrics Translation Viewer</p>
+    </footer>
+
+<div id="hl-aria-live-message-container" aria-live="polite" class="visually-hidden"></div><div id="hl-aria-live-alert-container" role="alert" aria-live="assertive" class="visually-hidden"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
