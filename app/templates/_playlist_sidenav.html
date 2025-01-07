@@ -21,5 +21,10 @@
 <!-- Will need to implement a box for user's to submit playlist URL-->
 <div id="playlist-sidenav">
     <p>No playlist selected yet. Please input a valid playlist URL.</p>
+    <form action="/redirect_to_playlist" method="POST">
+        <label for="user_input_url">Spotify Playlist URL:</label><br>
+        <input type="text" id="user_input_url" name="user_input_url" size="100"><br><br>
+        <input type="submit" value="Submit">
+    </form>
 </div>
 {% endif %}

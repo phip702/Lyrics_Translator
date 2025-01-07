@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Track Information</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block sidenav %}
+    {% include "_playlist_sidenav.html" %}
+{% endblock %}
+
+
+{% block content %}
     <h1>Displaying lyrics for: {{ track_artist }}'s "{{ track_name }}"</h1>
     {% if track_image %}
         <img src="{{ track_image }}" alt="Track Image" style="width:300px;"><br>
@@ -28,5 +30,4 @@
         <p>No lyrics available for this track.</p>
     {% endif %}
     <a href="/">Back to search</a>
-</body>
-</html>
+{% endblock %}

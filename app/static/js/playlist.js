@@ -42,7 +42,7 @@ $(document).ready(function() {
                                 <td><img src="${track.track_image}" alt="Track Image" width="100" height="100"></td>
                                 <td>${track.track_artist}</td>
                                 <td>${track.track_name}</td>
-                                <td class="track-id" style="display: none;">${track.spotify_track_id}</td>
+                                <td class="spotify-track-id" style="display: none;">${track.spotify_track_id}</td>
                             </tr>
                         `);
                         $('#sidenav-tracks').append(`
@@ -74,14 +74,12 @@ $(document).ready(function() {
 
 
 //= Add listeners for every track row to redirect to track URL on user click
-document.querySelectorAll('.track-row').forEach(row => {
-    row.addEventListener('click', function() {
+$(document).on('click', '.track-row', function() {
     // Get the Spotify track ID from the hidden cell
-    const trackId = this.querySelector('.spotify-track-id').innerText;
+    const trackId = $(this).find('.spotify-track-id').text();
 
     // Redirect to the track page using the track ID
     window.location.href = `/track/${trackId}`;
-    });
 });
 
 

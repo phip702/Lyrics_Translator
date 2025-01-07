@@ -1,5 +1,5 @@
 import logging
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from ..services.spotify import get_playlist_name_image, get_playlist_tracks_name_artist_image
 
 playlist = Blueprint('playlist', __name__)
@@ -15,6 +15,24 @@ def playlist_page(spotify_playlist_id):
     tracks = get_playlist_tracks_name_artist_image(spotify_playlist_id) #* (2)could async this
     #logging.debug(f"Tracks: %s", tracks)
     return render_template("playlist.html", spotify_playlist_id=spotify_playlist_id, playlist_name=playlist_name, playlist_image=playlist_image, tracks=tracks)
+
+#= This is for the sidenav user inputs
+@playlist.route('/redirect_to_playlist', methods=['POST'])
+def redirect_to_playlist():
+    user_input_url = request.form.get('user_input_url', '').strip()
+    
+    # Validate the input and extract the playlist ID
+    if '/playlist/' in user_input_url:
+        try:
+            spotify_playlist_id = user_input_url.split('/playlist/')[1].split('?')[0]
+            return redirect(url_for('playlist.playlist_page', spotify_playlist_id=spotify_playlist_id))
+        except IndexError:
+            logging.error(f"Malformed Spotify Playlist URL: {user_input_url}")
+            return render_template('error.html', error_message="Invalid Spotify Playlist URL.")
+    else:
+        logging.error(f"Invalid URL entered: {user_input_url}")
+        return render_template('error.html', error_message="URL does not contain a valid Spotify Playlist.")
+
 
 
 @playlist.route('/api/fetch_tracks/<spotify_playlist_id>', methods=['GET'])

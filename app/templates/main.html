@@ -1,15 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Enter Spotify URL for Song</title>
-</head>
-<body>
-    <h2>Enter Spotify URL for Song</h2>
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+{% endblock %}
+
+{% block sidenav %}
+    <!-- Empty sidenav, no content here -->
+    <nav id="playlist-sidenav"></nav>
+{% endblock %}
+
+{% block content %}
+    <h2>Enter Spotify URL for a Song or Playlist</h2>
     <form action="/" method="POST">
-        <label for="user_input_url">Spotify URL:</label><br>
-        <input type="text" id="user_input_url" name="user_input_url" size="100"><br><br>
+        <label for="user_input_url"></label><br>
+        <input type="text" id="user_input_url" name="user_input_url" size="100" placeholder="What do you want to translate?"><br><br>
         <input type="submit" value="Submit">
     </form>
-    <p>*It may take a few seconds to load the next page.</p>
-</body>
-</html>
+    <p class="user-warning">*It may take a few seconds to load the next page.</p>
+{% endblock %}
