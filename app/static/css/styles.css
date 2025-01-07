@@ -46,16 +46,43 @@ header {
 }
 
 
+/*= Sidenav and Main */
+.track-name {
+    font-size: 1.3rem; 
+    font-weight: bold;  
+    color: #fff;
+}
 
+ .track-artist {
+    font-size: 1rem;  
+    color: #b3b3b3;  
+}
+
+.load-more {
+    background-color: #1ed760;
+    border-radius: .5rem;
+    color: #fff;
+    border: none;
+    width: 100%;
+    font-weight: bold;
+}
+
+
+
+/*=Sidenav */
 #playlist-sidenav {
     background-color: #121212;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     padding: 10px;
     border-radius: .5rem;
     flex-direction: column;
 }
 
+#playlist-sidenav .playlist-name {
+    font-size: 1.5rem;
+    text-align: center;
+}
 #playlist-sidenav .playlist-image {
     width: 100%;  /* Make the image width 100% of the sidenav width */
     height: auto;  /* Height adjusts to maintain aspect ratio */
@@ -64,6 +91,9 @@ header {
     margin-bottom: 2rem;  /* Adds some space below the image */
 }
 
+#playlist-sidenav .track-row:first-of-type {
+    border-top: 3px solid #333;  /* Thin gray line above the first track */
+}
 
 #playlist-sidenav .track-row {
     display: flex;
@@ -86,25 +116,9 @@ header {
     justify-content: center; /* Align items centrally */
 }
 
-.track-name {
-    font-size: 1.3rem; 
-    font-weight: bold;  
-    color: #fff;
-}
-
- .track-artist {
-    font-size: 1rem;  
-    color: #b3b3b3;  
-}
 
 
-
-
-
-
-
-
-/* Main Content */
+/*= Main Content */
 .playlist-header {
     display: flex;
     align-items: center;
@@ -141,6 +155,10 @@ header {
     box-shadow: inset 0 -2px 0 #333;
 }
 
+#main-content table thead tr th {
+    color: #fff;
+    font-size: 1.5rem;
+}
 #main-content table thead tr th:nth-child(3){
     color: #b3b3b3
 }
@@ -166,10 +184,9 @@ header {
 
 
 
-/* Mouse and Scrolling */
+/*= Mouse and Scrolling */
+header:hover,
 #playlist-sidenav .track-row:hover .track-name,
-#main-content table thead tr th:nth-child(2):hover, 
-#main-content table thead tr th:nth-child(3):hover,
 #main-content table tbody tr:hover td:nth-child(2) {
     color: #1ed760;  /* Accent color on hover */
     transition: color 0.3s ease;  /* Smooth transition for color change */
@@ -200,8 +217,8 @@ header {
 }
 
 /* 
-TODO: sort table option
-TODO: load button still showing inappropriately for sidenav
-TODO: prettify the load more button
-TODO: make the track URL  look better
-TODO: make the home page look better */
+C-TODO: load button still showing inappropriately for sidenav
+C-TODO: prettify the load more button
+TODO: make the track page  look better
+TODO: make the home page look better 
+*/

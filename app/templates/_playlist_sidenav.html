@@ -1,7 +1,7 @@
 <!-- app/templates/_playlist_sidenav.html -->
 {% if playlist_name %}
 <nav id="playlist-sidenav">
-    <h2>{{ playlist_name }}</h2>
+    <h2 class="playlist-name">{{ playlist_name }}</h2>
     <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
     <div id="sidenav-tracks">
         {% for track in tracks %}
@@ -14,7 +14,7 @@
             </a>
         {% endfor %}
         </div>
-    <button id="load-more-sidenav" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
+    <button id="load-more-sidenav" class="load-more" data-playlist-id="{{ spotify_playlist_id }}">LOAD MORE TRACKS</button>
 </nav>
 
 {% else %}

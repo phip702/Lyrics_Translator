@@ -12,7 +12,7 @@
             {% else %}
                 <p>No playlist available.</p>
             {% endif %}
-            <h1>Displaying Playlist: <br>{{ playlist_name }}</h1>
+            <h1>{{ playlist_name }}</h1>
         </div>
 
         
@@ -36,8 +36,7 @@
             </tbody>
         </table>
         
-        <button id="load-more-btn" data-playlist-id="{{ spotify_playlist_id }}">Load More Tracks</button>
-        <a href="/">Back to search</a>
+        <button id="load-more-content" class="load-more" data-playlist-id="{{ spotify_playlist_id }}">LOAD MORE TRACKS</button>
     </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
