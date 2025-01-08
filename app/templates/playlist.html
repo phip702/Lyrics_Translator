@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/playlist.css') }}">
+{% endblock %}
+
 {% block sidenav %}
     {% include "_playlist_sidenav.html" %}
 {% endblock %}
 
 {% block content %}
-    <div id="main-content">
-        <div class="playlist-header"> 
+    <div id="content-gradient">
+        <div class="content-header-div"> 
             {% if playlist_image %}
                 <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;" class="content-main-image"><br>
             {% else %}

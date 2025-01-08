@@ -5,6 +5,7 @@ html, body {
     margin: 0;
     overflow-y: hidden;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
 main {
@@ -79,7 +80,7 @@ header {
 }
 
  .track-artist {
-    font-size: 1rem;  
+    font-size: 1.1rem;  
     color: #b3b3b3;  
 }
 /** make this apply to all buttons? */
@@ -144,13 +145,20 @@ button, input[type="submit"] {
 
 
 /*= Main Content */
-.playlist-header {
+#content-gradient {
+    background: linear-gradient(to bottom, #193c1f, #121212); /* Green to dark gradient */
+    padding: 20px; /* Adds padding inside the container */
+    border-radius: .5rem; /* Optional: Adds rounded corners */
+    height: 40%;
+}
+
+.content-header-div {
     display: flex;
     align-items: center;
     font-size: x-large;
 }
 
-.playlist-header img {
+.content-header-div img {
     max-width: 300px;
     height: auto;
     object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
@@ -158,21 +166,14 @@ button, input[type="submit"] {
     margin: 2rem;
 }
 
-#main-content {
-    background: linear-gradient(to bottom, #193c1f, #121212); /* Green to dark gradient */
-    padding: 20px; /* Adds padding inside the container */
-    border-radius: .5rem; /* Optional: Adds rounded corners */
-    height: 40%;
-}
-
-#main-content table {
+.content table {
     width: 100%; /* Optional: Ensures the table takes up full width */
     border: none;
     border-collapse: collapse;
     table-layout: auto;
 }
 
-#main-content table thead {
+.content table thead {
     position: static;
     top: 0;
     width: 100%;
@@ -180,44 +181,35 @@ button, input[type="submit"] {
     box-shadow: inset 0 -2px 0 #333;
 }
 
-#main-content table thead tr th {
+.content table thead tr th {
     color: #fff;
     font-size: 1.5rem;
 }
-#main-content table thead tr th:nth-child(3){
-    color: #b3b3b3
-}
 
-#main-content th, td {
+
+.content th, td {
     border: none; /* Removes borders from table headers and data cells */
     padding: 10px; /* Optional: Adds padding for better spacing inside cells */
     text-align: left; /* Horizontal */
     vertical-align: center; /* Vertical */
 }
 
-#main-content tr {
+.content tr {
     border: none;
 }
 
-#main-content table img {
-    max-width: 100rem;
-    height: auto;
-    object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
-    border-radius: .5rem;  /* Optional: Adds rounded corners */
-}
 
 
 
 
 /*= Mouse and Scrolling */
 header:hover,
-#playlist-sidenav .track-row:hover .track-name,
-#main-content table tbody tr:hover td:nth-child(2) {
+#playlist-sidenav .track-row:hover .track-name {
     color: #1ed760;  /* Accent color on hover */
     transition: color 0.3s ease;  /* Smooth transition for color change */
 }
 
-#main-content table tbody tr:hover {
+.content table tbody tr:hover {
     background-color: #292929;  /* Light grey background color on hover */
     transition: background-color 0.3s ease;  /* Smooth transition for background color */
 }
@@ -244,8 +236,8 @@ header:hover,
 /* 
 C-TODO: load button still showing inappropriately for sidenav
 C-TODO: prettify the load more button
-TODO: compartmentalize my CSS and JSS
-TODO: make the track page look better
+C-TODO: compartmentalize my CSS and JSS
+C-TODO: make the track page look better
     TODO: make the playlist sidenav stay persistent
 C-TODO: make the home page look better 
 */

@@ -1,0 +1,18 @@
+/*= Main Content */
+
+.content table img {
+    max-width: 100rem;
+    height: auto;
+    object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
+    border-radius: .5rem;  /* Optional: Adds rounded corners */
+}
+
+.content table thead tr th:nth-child(3){
+    color: #b3b3b3
+}
+
+/*= Mouse and Scrolling */
+.content table tbody tr:hover td:nth-child(2) {
+    color: #1ed760;  /* Accent color on hover */
+    transition: color 0.3s ease;  /* Smooth transition for color change */
+}

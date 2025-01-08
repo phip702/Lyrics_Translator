@@ -1,33 +1,52 @@
 {% extends "base.html" %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/track.css') }}">
+{% endblock %}
+
 {% block sidenav %}
     {% include "_playlist_sidenav.html" %}
 {% endblock %}
 
 
 {% block content %}
-    <h1>Displaying lyrics for: {{ track_artist }}'s "{{ track_name }}"</h1>
-    {% if track_image %}
-        <img src="{{ track_image }}" alt="Track Image" style="width:300px;"><br>
-    {% endif %}
+    <div id="content-gradient">
+        <div  class="content-header-div" >
+            {% if track_image %}
+            <img src="{{ track_image }}" alt="Track Image" style="width:300px;"><br>
+            <div class="header-title">
+                <h4>Displaying lyrics for {{ track_artist }}'s</h4>
+                <h1>{{ track_name }}</h1>
+            </div> 
+            {% endif %}
+        </div>
+
     {% if zipped_lyrics %}
         <div>
-            <h2>Original Lyrics and Translated Lyrics:</h2>
             <table>
-                <tr>
+                <thead>
+                    <tr>
                     <th>Original Lyrics</th>
                     <th>Translated Lyrics</th>
-                </tr>
-                {% for original_line, translated_line in zipped_lyrics %}
-                <tr>
-                    <td>{{ original_line }}</td>
-                    <td>{{ translated_line }}</td>
-                </tr>
+                </thead>
+
+                <tbody>
+                    </tr>
+                        {% for original_line, translated_line in zipped_lyrics %}
+                    <tr>
+                        <td>{{ original_line }}</td>
+                        <td>{{ translated_line }}</td>
+                    </tr>
+                </tbody>
+                
                 {% endfor %}
             </table>
         </div>
+    </div>
     {% else %}
         <p>No lyrics available for this track.</p>
     {% endif %}
-    <a href="/">Back to search</a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/track.js') }}"></script>
 {% endblock %}

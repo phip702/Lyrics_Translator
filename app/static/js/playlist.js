@@ -83,4 +83,14 @@ $(document).on('click', '.track-row', function() {
 });
 
 
+//= Function to make playlist info persist upon clicking a track
+$(document).ready(function() {
+    // Save track information on track click
+    $('#sidenav-tracks .track-row').on('click', function() {
+        var trackId = $(this).find('.spotify-track-id').text();
+        localStorage.setItem('selectedTrack', trackId);
+    });
+});
+
+
 })
