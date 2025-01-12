@@ -209,7 +209,8 @@ button, input[type="submit"] {
 
 /*= Mouse and Scrolling */
 header:hover,
-#playlist-sidenav .track-row:hover .track-name {
+#playlist-sidenav .track-row:hover .track-name,
+#playlist-sidenav-header-box:hover {
     color: #1ed760;  /* Accent color on hover */
     transition: color 0.3s ease;  /* Smooth transition for color change */
 }

@@ -16,7 +16,7 @@ def playlist_page(spotify_playlist_id):
     #logging.debug(f"Tracks: %s", tracks)
     return render_template("playlist.html", spotify_playlist_id=spotify_playlist_id, playlist_name=playlist_name, playlist_image=playlist_image, tracks=tracks)
 
-#= This is for the sidenav user inputs
+#= This is for the sidenav user inputs to reroute to the normal playlist URL
 @playlist.route('/redirect_to_playlist', methods=['POST'])
 def redirect_to_playlist():
     user_input_url = request.form.get('user_input_url', '').strip()

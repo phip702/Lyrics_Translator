@@ -1,18 +1,22 @@
 <!-- app/templates/_playlist_sidenav.html -->
 {% if playlist_name %}
 <nav id="playlist-sidenav">
-    <h2 class="playlist-name">{{ playlist_name }}</h2>
-    <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
-    <div id="sidenav-tracks">
-        {% for track in tracks %}
-            <a class="track-row" href="/track/{{ track.spotify_track_id }}">
-                <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
-                <div class="track-info">
-                    <span class="track-name">{{ track.track_name }}</span>
-                    <span class="track-artist">{{ track.track_artist }}</span>
-                </div>
-            </a>
-        {% endfor %}
+    <div id="playlist-sidenav-header-box">
+        <h2 class="playlist-name">{{ playlist_name }}</h2>
+        <span class="spotify-playlist-id" style="display: none;">{{ spotify_playlist_id }}</span>
+        <img class="playlist-image" src="{{ playlist_image }}" alt="Playlist Image">
+    </div>
+        <div id="sidenav-tracks">
+            {% for track in tracks %}
+                <a class="track-row" href="/track/{{ track.spotify_track_id }}">
+                    <img src="{{ track.track_image }}" alt="Track Image" width="50" height="50">
+                    <div class="track-info">
+                        <span class="track-name">{{ track.track_name }}</span>
+                        <span class="track-artist">{{ track.track_artist }}</span>
+                    </div>
+                    <span class="spotify-track-id" style="display: none;">{{ track.spotify_track_id }}</span>
+                </a>
+            {% endfor %}
         </div>
     <button id="load-more-sidenav" class="load-more" data-playlist-id="{{ spotify_playlist_id }}">LOAD MORE TRACKS</button>
 </nav>

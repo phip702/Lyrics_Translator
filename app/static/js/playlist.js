@@ -19,8 +19,24 @@ $(document).ready(function() {
     })();
 
 
-    //* Load more both
-    let rowsCount = $('#tracks-body tr').length; 
+
+    //= session saved sidebar
+    var savedSidebar = sessionStorage.getItem('playlistSidebar');
+
+    if (savedSidebar) {
+        // If saved data exists, append it to the page
+        $('#playlist-sidenav').html(savedSidebar);
+        // Load the tracks body based on saved sidebar data
+        loadTracksFromSidebar(savedSidebar);
+    } else {
+        // If no saved data, generate the sidebar and save it to sessionStorage
+        saveSidebarToSessionStorage();
+    }
+
+
+    //= Load more both
+    let rowsCount = $('#sidenav-tracks .track-row').length; 
+    console.log(`rowsCount on initialize: ${rowsCount}`);
 
     if (rowsCount % 50 !== 0) { 
         $('.load-more').hide();  // Hide button if not a multiple of 50 because this means all tracks have been loaded
@@ -52,18 +68,23 @@ $(document).ready(function() {
                                     <span class="track-name">${track.track_name}</span>
                                     <span class="track-artist">${track.track_artist}</span>
                                 </div>
+                                <span class="spotify-track-id" style="display: none;">${track.spotify_track_id}</span>
                             </a>
                         `);
                     });
 
+                    saveSidebarToSessionStorage();
+
                     // Update the row count and check if the button needs to be hidden
-                    let rowsCount = $('#tracks-body').find('tr').length;
+                    rowsCount = $('#sidenav-tracks .track-row').length;
                     if (rowsCount % 50 !== 0) {
                         $(".load-more").hide(); // Hide button if all tracks are loaded
                     }
                 }
+                console.log(`rowsCount on load-more end function: ${rowsCount}`);
             },
             error: function(error) {
+                console.log(`rowsCount on load-more error: ${rowsCount}`);
                 alert('Error fetching tracks. Please try again.\nSpotify playlist might already be fully loaded');
             }
         });
@@ -83,14 +104,48 @@ $(document).on('click', '.track-row', function() {
 });
 
 
-//= Function to make playlist info persist upon clicking a track
-$(document).ready(function() {
-    // Save track information on track click
-    $('#sidenav-tracks .track-row').on('click', function() {
-        var trackId = $(this).find('.spotify-track-id').text();
-        localStorage.setItem('selectedTrack', trackId);
+
+
+//= Save to sidebar function
+    function saveSidebarToSessionStorage() {
+        var sidebarContent = $('#playlist-sidenav').html();  // Get the HTML of the sidebar
+        sessionStorage.setItem('playlistSidebar', sidebarContent);  // Save the HTML to sessionStorage
+    }
+
+
+
+
+//= If savedsidebar exists then use it to populate the playlist-body
+function loadTracksFromSidebar(savedSidebar) {
+    // Parse the savedSidebar HTML to find the track links in the sidenav
+    const trackLinks = $(savedSidebar).find('.track-row');  // Find all .track-row elements in the saved sidebar
+
+    // Clear the current tracks in the tracks body
+    $('#tracks-body').empty();
+
+    // Append each track to the tracks-body using the sidebar information
+    trackLinks.each(function() {
+        // Extract track information from the link
+        const trackId = $(this).find('.spotify-track-id').text(); // Get the spotify track id
+        const trackName = $(this).find('.track-name').text();    // Get the track name
+        const trackArtist = $(this).find('.track-artist').text(); // Get the track artist
+        const trackImage = $(this).find('img').attr('src');      // Get the track image
+
+        // Append the track to the tracks-body with the necessary hidden spotify-track-id
+        $('#tracks-body').append(`
+            <tr class="track-row">
+                <td><img src="${trackImage}" alt="Track Image" width="100" height="100"></td>
+                <td>${trackArtist}</td>
+                <td>${trackName}</td>
+                <td class="spotify-track-id" style="display: none;">${trackId}</td>
+            </tr>
+        `);
     });
+}
+    
+
+    
+
+
+
 });
-
-
-})
