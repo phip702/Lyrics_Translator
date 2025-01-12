@@ -239,11 +239,30 @@ header:hover,
     background-color: #b3b3b3; /* Change the color when hovering */
 }
 
-/* 
-C-TODO: load button still showing inappropriately for sidenav
-C-TODO: prettify the load more button
-C-TODO: compartmentalize my CSS and JSS
-C-TODO: make the track page look better
-    TODO: make the playlist sidenav stay persistent
-C-TODO: make the home page look better 
-*/
+
+
+
+
+/*= Styling for the loading spinner */
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;  /* Make sure it's on top of all content */
+    display: none;   /* Initially hidden */
+}
+
+.spinner {
+    border: 1rem solid rgba(255, 255, 255, 0.3); /* Light border */
+    border-top: 1rem solid #1ed760; /* Blue border */
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    animation: spin 1.5s linear infinite; /* Rotation animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

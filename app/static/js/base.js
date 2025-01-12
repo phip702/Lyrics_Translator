@@ -10,3 +10,28 @@ $(document).ready(function() {
 });
 
 // TODO: while this sidenav persists and functions, rerouting back to the playlist page still hits the Spotify API for the first 50 songs, even if the session's sidenav already has more songs that will overwrite it
+
+// Show the loading spinner whenever an AJAX request starts
+$(document).ajaxStart(function() {
+    $('#loading-spinner').show();
+});
+
+// Hide the spinner when the AJAX request completes
+$(document).ajaxStop(function() {
+    $('#loading-spinner').hide();
+});
+
+// Alternatively, show the spinner when the page starts loading
+$(window).on('beforeunload', function() {
+    $('#loading-spinner').show();
+});
+
+// Hide the spinner when the page is fully loaded
+$(window).on('load', function() {
+    $('#loading-spinner').hide();
+});
+
+$(window).on('pageshow', function(event) {
+    // Hide the spinner when the page is restored
+    $('#loading-spinner').hide();
+});

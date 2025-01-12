@@ -67,7 +67,7 @@ def create_app():
 #C-TODO: unit testing
 #C-TODO: analytics --just use my old artifact, don't do anything more
 #TODO: reset requirement.txt to remove things like Celery
-#TODO: front end (HTML template/polymorphism, CSS)
+#C-TODO: front end (HTML template/polymorphism, CSS)
 #TODO: Add buffering/loading indication
 #TODO: live deploy
 #TODO: continuous integration?
