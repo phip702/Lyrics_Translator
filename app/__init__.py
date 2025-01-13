@@ -68,11 +68,11 @@ def create_app():
 #C-TODO: analytics --just use my old artifact, don't do anything more
 #TODO: reset requirement.txt to remove things like Celery
 #C-TODO: front end (HTML template/polymorphism, CSS)
-#TODO: Add buffering/loading indication
+#C-TODO: Add buffering/loading indication
 #TODO: live deploy
 #TODO: continuous integration?
 #TODO: continuous delivery?
 #TODO: production monitoring instrumenting
 
 #TODO: make genius api call ignore 'romanized' versions; enforce language selection by user
-#TODO: make playlist become side menu after user selects track
+#C-TODO: make playlist become side menu after user selects track
