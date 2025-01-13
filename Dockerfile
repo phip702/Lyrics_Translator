@@ -57,4 +57,6 @@ COPY wait-for-it.sh /wait-for-it.sh
 RUN chmod +x /wait-for-it.sh
 
 # CMD to wait for RabbitMQ to be ready, then run Flask
-CMD ["/wait-for-it.sh", "rabbitmq:5672", "--", "flask", "run", "--host=0.0.0.0", "--port=8080"]
+#CMD ["/wait-for-it.sh", "rabbitmq:5672", "--", "flask", "run", "--host=0.0.0.0", "--port=8080"]
+
+CMD ["/wait-for-it.sh", "rabbitmq:5672", "--", "gunicorn", "app:create_app"]
