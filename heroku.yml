@@ -13,4 +13,4 @@ build:
     DATABASE_URL: $DATABASE_URL  # Heroku's Postgres URL will be automatically provided
 
 run:
-  web: gunicorn -b 0.0.0.0:$PORT app:create_app()
+  web: gunicorn -b 0.0.0.0:$PORT app:create_app
