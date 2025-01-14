@@ -33,7 +33,7 @@ services:
       # - CELERY_RESULT_BACKEND=rpc://  # Celery backend to track results
     volumes:
       - .:/app  # Mount the current directory to /app inside the container; meaning changes to local files go to container's files as well
-      - ./db.sqlite3:/app/db.sqlite3  # Mount the local SQLite DB into the container
+      - ./app/db.sqlite3:/app/db.sqlite3 # Mount the local SQLite DB into the container
     depends_on:
       - rabbitmq # Ensures rabbitmq starts before flask-app
     # CMD to wait for RabbitMQ to be ready, then run Flask

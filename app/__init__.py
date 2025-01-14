@@ -26,11 +26,13 @@ def create_app():
     logging.getLogger('pika').setLevel(logging.WARNING)
 
     load_dotenv()
-    print(f"FLASK ENV: {os.getenv("FLASK_ENV")}")
+    print(f"FLASK ENV: {os.getenv('FLASK_ENV')}")
 
     app = Flask(__name__, static_url_path="", static_folder="static")
     app.secret_key = 'sjfa90u3214sfdfaJIS0324'  # Necessary for sessions
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////db.sqlite3'
+    print("Current directory:", os.getcwd())
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////app/db.sqlite3'
+
     app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
@@ -52,6 +54,10 @@ def create_app():
         logging.critical("Tables Initialized: %s", tables)
 
     run_rabbitmq_services()
+
+    db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', '')
+    # Log the database path
+    print(f"Inserting into database located at: {db_path}")
 
     print("APP INITIALIZED")
     return app
