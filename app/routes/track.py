@@ -40,7 +40,7 @@ def track_page(spotify_track_id):
         translated_lyrics, detected_language = get_translated_lyrics(original_lyrics)
         logging.debug("First 3 lines of Translated lyrics:\n{}".format('\n'.join(translated_lyrics.splitlines()[:3])))
         new_lyrics = Lyrics(spotify_track_id = spotify_track_id, original_lyrics = original_lyrics, translated_lyrics = translated_lyrics, detected_language = detected_language)
-        insert_row_producer(new_lyrics) #TODO: don't want to insert 'Couldn't get lyrics' or the like... or do I?? Right now, it's breaking by returning error.html
+        insert_row_producer(new_lyrics) #TODO: don't want to insert 'Couldn't get lyrics' or the like... or do I?? Right now, it's breaking by returning error.html; Con Altura and Chino are formatting wrong. too many \n
 
     zipped_lyrics = zip(original_lyrics.split('\n'), translated_lyrics.split('\n'))
 
