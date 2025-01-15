@@ -23,7 +23,7 @@ services:
       context: . #Tells it to use the current directory's files
       dockerfile: Dockerfile
     ports:
-      - "5001:5000"
+      - "5001:5001"
     environment:
       - FLASK_APP=app #uses the app folder (defaults to __init__.py)
       - FLASK_ENV=development
