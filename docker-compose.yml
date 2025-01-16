@@ -23,7 +23,7 @@ services:
       context: . #Tells it to use the current directory's files
       dockerfile: Dockerfile
     ports:
-      - "5001:5001"
+      - "5000:5000"
     environment:
       - FLASK_APP=app #uses the app folder (defaults to __init__.py)
       - FLASK_ENV=development
@@ -37,7 +37,7 @@ services:
     depends_on:
       - rabbitmq # Ensures rabbitmq starts before flask-app
     # CMD to wait for RabbitMQ to be ready, then run Flask
-    command: ["/wait-for-it.sh", "rabbitmq:5672", "--", "flask", "run", "--host=0.0.0.0", "--port=5001"]
+    command: ["/wait-for-it.sh", "rabbitmq:5672", "--", "flask", "run", "--host=0.0.0.0", "--port=5000"]
 
   # db:
   #   image: postgres
