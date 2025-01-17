@@ -6,12 +6,22 @@ from bs4 import BeautifulSoup
 from ..handlers.lyrics_handler import trim_lyrics
 import logging
 import json
+import unicodedata
 
 def get_genius_auth_token(): #*do not delete, this is called on the home page
     load_dotenv()
     genius_auth_token = os.getenv("GENIUS_AUTH_TOKEN")
     return genius_auth_token
 
+
+def remove_accents_if_latin(input_str):
+    """
+    Normalize a string to remove accents only if it contains Latin characters.
+    """
+    if any('LATIN' in unicodedata.name(char, '') for char in input_str):
+        nfkd_form = unicodedata.normalize('NFKD', input_str)
+        return ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
+    return input_str
 
 def search_song_by_artist(track_artist, hits):
     '''This is used to find the top hit on the Genius song list that has the spotify track_artist's name.
@@ -22,11 +32,13 @@ def search_song_by_artist(track_artist, hits):
     try:
         for idx, hit in enumerate(hits, start = 1):
             artist_names = hit['result']['artist_names'].lower()
-            if track_artist.lower() in artist_names: #used in because of issues where there's a (featuring XX)
+            logging.debug(f"Is {track_artist} == Genius artist name: {artist_names}")
+            if remove_accents_if_latin(track_artist.lower()) in remove_accents_if_latin(artist_names): #used in because of issues where there's a (featuring XX)
                 logging.debug(f"Genius Hit Number Returned: {idx}")
                 genius_url = hit['result']['url'] 
                 return genius_url
     except:
+        logging.error(f"Could not find {track_artist} in {[hit['result']['artist_names'] for hit in hits]}")
         "No matching artist in hits"
         
          
