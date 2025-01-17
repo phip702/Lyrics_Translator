@@ -67,6 +67,7 @@ def get_song_lyrics(track_name, track_artist):
         hits = search_results['hits']
         logging.debug(f"Genius Hits: {json.dumps(hits, indent=4)}")
         first_hit_url = search_song_by_artist(track_artist, hits)
+        logging.info(f"Returning first Genius URL: {first_hit_url}")
         return scrape_song_lyrics(first_hit_url)
     except Exception as e:
         logging.error(f"Error while fetching lyrics: {e}")
