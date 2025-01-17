@@ -16,3 +16,25 @@
     color: #1ed760;  /* Accent color on hover */
     transition: color 0.3s ease;  /* Smooth transition for color change */
 }
+
+
+@media (max-width: 480px) { 
+
+    .content table {
+        width: 100%; /* Ensure the table takes up full width */
+        table-layout: fixed; /* Prevent content overflow and force wrapping */
+    }
+
+    .content th, td {
+        padding: 2px; /* Adjust padding for smaller screen */
+        text-align: center; /* Keep content centered */
+        align-items: center;
+        font-size: 1rem;
+        vertical-align: middle;
+    }
+
+    .content table td img {
+        max-width: 100%; /* Make images responsive */
+        height: auto; /* Maintain aspect ratio */
+    }
+}

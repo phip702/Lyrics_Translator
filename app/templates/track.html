@@ -10,38 +10,36 @@
 
 
 {% block content %}
-    <div id="content-gradient">
-        <div  class="content-header-div" >
-            {% if track_image %}
-            <img src="{{ track_image }}" alt="Track Image" style="width:300px;"><br>
-            <div class="header-title">
-                <h4>Displaying lyrics for {{ track_artist }}'s</h4>
-                <h1>{{ track_name }}</h1>
-            </div> 
-            {% endif %}
-        </div>
+    <div  class="content-header-div" >
+        {% if track_image %}
+        <img src="{{ track_image }}" alt="Track Image" style="width:300px;"><br>
+        <div class="header-title">
+            <h4>Displaying lyrics for {{ track_artist }}'s</h4>
+            <h1>{{ track_name }}</h1>
+        </div> 
+        {% endif %}
+    </div>
 
-    {% if zipped_lyrics %}
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                    <th>Original Lyrics</th>
-                    <th>Translated Lyrics</th>
-                </thead>
+{% if zipped_lyrics %}
+    <div>
+        <table>
+            <thead>
+                <tr>
+                <th>Original Lyrics</th>
+                <th>Translated Lyrics</th>
+            </thead>
 
-                <tbody>
-                    </tr>
-                        {% for original_line, translated_line in zipped_lyrics %}
-                    <tr>
-                        <td>{{ original_line }}</td>
-                        <td>{{ translated_line }}</td>
-                    </tr>
-                </tbody>
-                
-                {% endfor %}
-            </table>
-        </div>
+            <tbody>
+                </tr>
+                    {% for original_line, translated_line in zipped_lyrics %}
+                <tr>
+                    <td>{{ original_line }}</td>
+                    <td>{{ translated_line }}</td>
+                </tr>
+            </tbody>
+            
+            {% endfor %}
+        </table>
     </div>
     {% else %}
         <p>No lyrics available for this track.</p>

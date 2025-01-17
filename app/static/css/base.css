@@ -23,7 +23,7 @@ body {
     "sidenav         main"
     "footer          footer";
     grid-template-columns: minmax(100px, 25%)  auto;
-    grid-template-rows: 5% 90% 5%;
+    grid-template-rows: 5% 93% 2%;
     grid-row-gap: .1rem;
     grid-column-gap: .5rem;
     height: 100vh;
@@ -74,8 +74,12 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 1rem;
 }
 
+footer {
+    font-size: .85rem;
+}
 
 /*= Sidenav and Main */
 .track-name {
@@ -96,11 +100,42 @@ button, input[type="submit"] {
     border: none;
     width: 100%;
     font-weight: bold;
+    cursor: pointer;
 }
 
 
 
 /*=Sidenav */
+#playlist-sidenav.collapsed {
+    width: 0;
+    overflow: hidden;
+    display: none;
+    transition: width 1s;
+}
+
+/* When the sidenav is collapsed, change the grid layout */
+body.sidenav-collapsed {
+    grid-template-columns: 0 auto; /* Collapse sidenav */
+    grid-template-areas:
+        "topbar topbar"
+        "main main"  /* Make main span both columns */
+        "footer footer";
+}
+
+#toggle-sidenav {
+    width: 2.5rem;
+    font-size: 1rem;
+    justify-content: flex-start;
+    text-align: center;
+}
+
+body.sidenav-collapsed #toggle-sidenav::before {
+    content: '>>';  /* Left arrow when collapsed */
+}
+body:not(.sidenav-collapsed) #toggle-sidenav::before {
+    content: '<<';  /* Right arrow when expanded */
+}
+
 #playlist-sidenav {
     background-color: #121212;
     overflow-x: hidden;
@@ -153,7 +188,7 @@ button, input[type="submit"] {
 #content-gradient {
     background: linear-gradient(to bottom, #193c1f, #121212); /* Green to dark gradient */
     padding: 20px; /* Adds padding inside the container */
-    border-radius: .5rem; /* Optional: Adds rounded corners */
+    border-radius: .5rem;
     height: 40%;
 }
 
@@ -164,10 +199,10 @@ button, input[type="submit"] {
 }
 
 .content-header-div img {
-    max-width: 300px;
+    max-width: 100%;
     height: auto;
     object-fit: cover;  /* Ensures the image fills the available space while maintaining aspect ratio */
-    border-radius: .5rem;  /* Optional: Adds rounded corners */
+    border-radius: .5rem; 
     margin: 2rem;
 }
 
@@ -196,7 +231,7 @@ button, input[type="submit"] {
     border: none; /* Removes borders from table headers and data cells */
     padding: 10px; /* Optional: Adds padding for better spacing inside cells */
     text-align: left; /* Horizontal */
-    vertical-align: center; /* Vertical */
+    vertical-align: top; /* Vertical */
 }
 
 .content tr {
@@ -266,3 +301,52 @@ header:hover,
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+
+
+
+
+/*= Media */
+/* Media query for small screens (mobile devices) */
+@media (max-width: 480px) {
+    html {
+        font-size: 10px;  /* Reduce root font-size on mobile */
+    }
+
+    /* For the body layout when sidenav is collapsed */
+    body {
+        display: grid;
+        grid-template-areas:
+            "topbar topbar"
+            "sidenav main"  /* Make main span both columns */
+            "footer footer";
+        grid-template-columns: auto  55%;
+        grid-column-gap: 2px;
+        margin: 0;
+        padding: 0;
+
+    }
+    
+    body.sidenav-collapsed {
+        display: grid;
+        grid-template-columns: 0 auto; /* Collapse sidenav */
+        grid-template-areas:
+            "topbar topbar"
+            "main main"  /* Make main span both columns */
+            "footer footer";
+    }
+
+
+    .content-header-div {
+        flex-direction: column;  /* Stack the content vertically */
+        align-items: center;  /* Center the content */
+
+    }
+
+    .content-header-div h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+}
+

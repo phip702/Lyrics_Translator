@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block content %}
-    <div id="content-gradient">
         <div class="content-header-div"> 
             {% if playlist_image %}
                 <img src="{{ playlist_image }}" alt="Playlist Image" style="width:300px;" class="content-main-image"><br>
@@ -41,7 +40,6 @@
         </table>
         
         <button id="load-more-content" class="load-more" data-playlist-id="{{ spotify_playlist_id }}">LOAD MORE TRACKS</button>
-    </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ url_for('static', filename='js/playlist.js') }}"></script>

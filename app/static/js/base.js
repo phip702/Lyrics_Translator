@@ -35,3 +35,18 @@ $(window).on('pageshow', function(event) {
     // Hide the spinner when the page is restored
     $('#loading-spinner').hide();
 });
+
+
+
+document.getElementById('toggle-sidenav').addEventListener('click', function() {
+    const sidenav = document.getElementById('playlist-sidenav');
+    const body = document.body;
+    
+    // Toggle collapsed class on body to update the grid layout
+    sidenav.classList.toggle('collapsed');
+    body.classList.toggle('sidenav-collapsed');
+});
+
+
+
+
