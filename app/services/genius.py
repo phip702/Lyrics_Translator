@@ -46,6 +46,7 @@ def search_song_by_artist(track_artist, hits):
 def scrape_song_lyrics(url):
     page = requests.get(url)
     html = BeautifulSoup(page.text, 'html.parser')
+    logging.debug(f"Genius html results: \n{html}")
     lyrics_containers = html.find_all('div', attrs={'data-lyrics-container': 'true'})
     lyrics = ''
     if lyrics_containers:
