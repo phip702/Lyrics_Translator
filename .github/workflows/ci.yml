@@ -29,11 +29,6 @@ jobs:
         run: |
           docker-compose -f docker-compose.yml up -d  # Start services in the background
 
-      - name: Install dependencies inside the container
-        run: |
-          docker-compose exec flask-app pip install --upgrade pip  # Upgrade pip inside the flask container
-          docker-compose exec flask-app pip install -r /app/requirements.txt  # Install app dependencies
-
       - name: Run Flask tests with coverage
         run: |
           docker-compose exec flask-app coverage run -m pytest app/tests/test_routes.py  # Run tests in the container
@@ -45,6 +40,6 @@ jobs:
         with:
           name: coverage-report
           path: htmlcov/  # Upload the coverage HTML report folder
-          
+
       - name: Shut down Docker Compose services
         run: docker-compose down  # Shut down services after the test completes
