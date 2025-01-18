@@ -55,7 +55,9 @@ def create_app():
         tables = inspector.get_table_names()  # Get the list of table names
         logging.critical("Tables Initialized: %s", tables)
 
-    run_rabbitmq_services()
+    if os.getenv('FLASK_ENV') != 'testing':  # Skip RabbitMQ in the testing environment
+        run_rabbitmq_services()
+    
 
     db_path = app.config['SQLALCHEMY_DATABASE_URI'].replace('sqlite:///', '')
     # Log the database path
@@ -75,7 +77,7 @@ def create_app():
 #C-TODO: Add buffering/loading indication
 #C-TODO: live deploy
 #C-TODO: production monitoring instrumenting
-#TODO: continuous integration?
+#TODO: continuous integration
 #TODO: continuous delivery?
 
 #TODO: make genius api call ignore 'romanized' versions; enforce language selection by user

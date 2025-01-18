@@ -1,21 +1,37 @@
 import pytest
 import json
-from app import create_app  # Replace 'your_app' with the actual app module
+from app import create_app
+from dotenv import load_dotenv
+import os
+
+load_dotenv(dotenv_path="./.env")
 
 test_spotify_playlist_id = '4lvuWO8blWHWWGj3LfVzvD' #'Language Testing' playlist 
 test_spotify_track_id = '278kSqsZIiYp8p3QjYAqa8' #'Ni Bien Ni Mal' also in 'Language Testing' playlist
 
+
 @pytest.fixture
 def app():
-    app = create_app()
-    yield app
-
+    os.environ['FLASK_ENV'] = 'testing'
+    app = create_app()  # This assumes create_app initializes your Flask app
+    yield app  # This will make the app available for the tests to use
 
 @pytest.fixture
-def client(app):
-    return app.test_client()
+def db(app):
+    # app is an instance of your Flask app, _db is the SQLAlchemy DB instance
+    _db.app = app  # Attach app to the db instance
+    with app.app_context():
+        _db.create_all()  # Create tables for testing
+
+    yield _db  # Yield control to the tests
+
+    # Cleanup: close the session and drop all tables after each test
+    _db.session.remove()  # Close the DB session
+    _db.drop_all()  # Drop all tables after the test
+
 
 #* ----------------- Main Route -----------------
+
 def test_home_get(client):
     response = client.get("/")
     assert response.status_code == 200
