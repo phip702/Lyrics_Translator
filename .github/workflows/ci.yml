@@ -4,12 +4,12 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest  # Let Docker choose based on the runner architecture
 
     container:
-      image: python:3.12-slim  
-      options: --platform linux/arm64  # Explicitly set ARM64 architecture for the job
-    
+      image: python:3.12-slim  # Use the official Python image
+      # No need to specify the platform; Docker will decide automatically
+
     services:
       rabbitmq:
         image: rabbitmq:3.9-management
