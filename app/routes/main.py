@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, session, request, redirect, url_fo
 from ..services.genius import get_genius_auth_token  # Import relevant logic for the APIs
 from dotenv import load_dotenv
 from urllib.parse import urlparse, urlunparse
+from metrics import metrics
+from prometheus_client import Counter, generate_latest
 
 load_dotenv()
 
@@ -17,9 +19,13 @@ def strip_query_from_url(url):
     
     return stripped_url
 
+http_requests_main = Counter('http_requests_main', 'Number of visits to the root URL', ['route'])
+
 # Define the route for the home page
 @main.route("/", methods=["GET", "POST"])
-def home():
+def home():    
+    http_requests_main.labels(route='/').inc() #increment
+
     # Authenticate the user to Genius if the token is not already in the session
     if 'genius_auth_token' not in session:
         genius_auth_token = get_genius_auth_token()
@@ -42,3 +48,10 @@ def home():
             return render_template('error.html', error_message= f"Invalid Spotify URL. Please enter a valid URL. You entered: {user_input_url}")
     
     return render_template('main.html')
+
+
+@main.route('/metrics')
+def metrics_route():
+    # Generate the Prometheus metrics manually (optional)
+    response_data = generate_latest()
+    return response_data, 200, {'Content-Type': 'text/plain'}  # Return the metrics in the proper format

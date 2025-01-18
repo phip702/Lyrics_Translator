@@ -9,13 +9,15 @@ from ..handlers.lyrics_handler import get_translated_lyrics
 import pika
 import json
 from ..services.rabbitmq.insert_row_producer import insert_row_producer
-
-import time #delete later
+from prometheus_client import Counter
 
 track = Blueprint('track', __name__)
 
+http_requests_track = Counter('http_requests_track', 'Number of visits to the root URL', ['route'])
+
 @track.route('/track/<spotify_track_id>', methods= ['GET'])
 def track_page(spotify_track_id):
+    http_requests_track.labels(route='/').inc() #increment
     logging.debug((f"spotify_track_id: {spotify_track_id}"))
 
     track_name, track_artist, track_image = check_track_row_exists(spotify_track_id)

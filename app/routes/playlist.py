@@ -1,11 +1,15 @@
 import logging
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from ..services.spotify import get_playlist_name_image, get_playlist_tracks_name_artist_image
+from prometheus_client import Counter
 
 playlist = Blueprint('playlist', __name__)
 
+http_requests_playlist = Counter('http_requests_playlist', 'Number of visits to the root URL', ['route'])
+
 @playlist.route('/playlist/<spotify_playlist_id>', methods= ['GET'])
 def playlist_page(spotify_playlist_id):
+    http_requests_playlist.labels(route='/').inc() #increment
     logging.debug((f"spotify_playlist_id: {spotify_playlist_id}"))
     playlist_name, playlist_image = get_playlist_name_image(spotify_playlist_id) #* (1)could async this
     logging.debug(f"Playlist: {playlist_name}; Image URL: {playlist_image}")

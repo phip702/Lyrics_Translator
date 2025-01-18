@@ -12,7 +12,7 @@ from sqlalchemy import inspect
 from threading import Thread
 from app.services.rabbitmq.insert_row_producer import start_producer
 from app.services.rabbitmq.insert_row_consumer import start_consumer
-
+from metrics import metrics
 
 def run_rabbitmq_services():
     producer_thread = Thread(target=start_producer)
@@ -23,7 +23,7 @@ def run_rabbitmq_services():
 
 def create_app(): 
     logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-    logging.getLogger('pika').setLevel(logging.WARNING)
+    logging.getLogger('pika').setLevel(logging.WARNING) #* SET LOG LEVEL
 
     load_dotenv()
     print(f"FLASK ENV: {os.getenv('FLASK_ENV')}")
@@ -41,6 +41,8 @@ def create_app():
     app.config['RABBITMQ_URL'] = os.getenv('RABBITMQ_URL')
     db.init_app(app)
     migrate.init_app(app,db)
+
+    metrics.init_app(app)
 
     app.register_blueprint(main)
     app.register_blueprint(playlist)
@@ -63,7 +65,7 @@ def create_app():
     return app
 
 
-
+#TODO: IS MY JS CODE FOR THE PLAYLIST SIDENAV NOT OFFSETTING!?
 #C-TODO: message queue
 #C-TODO: implement async via threading for producing and consuming
 #C-TODO: playlist click track -> track page
