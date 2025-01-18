@@ -74,7 +74,7 @@ def create_app():
 #C-TODO: front end (HTML template/polymorphism, CSS)
 #C-TODO: Add buffering/loading indication
 #C-TODO: live deploy
-#TODO: production monitoring instrumenting
+#C-TODO: production monitoring instrumenting
 #TODO: continuous integration?
 #TODO: continuous delivery?
 

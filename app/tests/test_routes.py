@@ -19,7 +19,7 @@ def client(app):
 def test_home_get(client):
     response = client.get("/")
     assert response.status_code == 200
-    assert b"Enter Spotify URL for Song" in response.data  # Check if the page contains the expected title
+    assert b"Enter Spotify URL for a Song or Playlist" in response.data  # Check if the page contains the expected title
     assert b"Spotify URL:" in response.data  # Check if the form field is present
     assert b"Submit" in response.data  # Check if the submit button is present
 
