@@ -6,16 +6,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      rabbitmq:
-        image: rabbitmq:3.9-management
-        ports:
-          - 5672:5672
-        options: --health-cmd="rabbitmqctl status" --health-interval=10s --health-retries=3 --health-timeout=5s
-        env:
-          RABBITMQ_DEFAULT_USER: guest
-          RABBITMQ_DEFAULT_PASS: guest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
