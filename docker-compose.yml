@@ -61,7 +61,7 @@ services:
       - "3000:3000"
     volumes: 
     - grafana_data:/var/lib/grafana
-    - ./grafana/provisioning:/etc/grafana/provisioning  # Mount the provisioning directory for dashboard.yml
+    - ./grafana/provisioning:/etc/grafana/provisioning  #* These 2 don't seem to work for Oracle Mount the provisioning directory for dashboard.yml
     - ./grafana/provisioning/dashboards:/var/lib/grafana/dashboards  # Mount the dashboards directory for JSON files
     networks:
       - metrics

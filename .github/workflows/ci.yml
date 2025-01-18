@@ -4,11 +4,7 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Let Docker choose based on the runner architecture
-
-    container:
-      image: python:3.12-buster  # Use the official Python image
-      # No need to specify the platform; Docker will decide automatically
+    runs-on: ubuntu-latest
 
     services:
       rabbitmq:
@@ -24,25 +20,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12' 
-
-      - name: Install dependencies
+      - name: Set up Docker Compose
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Install your app dependencies
-          pip install coverage pytest  # Install coverage and pytest for testing
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Build and start services using Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml up -d  # Start services in the background
+
+      - name: Install dependencies inside the container
+        run: |
+          docker-compose exec flask-app pip install --upgrade pip  # Upgrade pip inside the flask container
+          docker-compose exec flask-app pip install -r /app/requirements.txt  # Install app dependencies
 
       - name: Run Flask tests with coverage
         run: |
-          coverage run -m pytest app/tests/test_routes.py  # Path to your test file
-          coverage report  # Print the coverage report to the CI logs
-          coverage html    # Generate HTML report for viewing (optional)
-      
+          docker-compose exec flask-app coverage run -m pytest app/tests/test_routes.py  # Run tests in the container
+          docker-compose exec flask-app coverage report  # Print the coverage report
+          docker-compose exec flask-app coverage html  # Optional HTML report
+
       - name: Upload coverage results (optional)
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: htmlcov/  # Upload the HTML coverage report folder (if generated)
+          path: htmlcov/  # Upload the coverage HTML report folder
+          
+      - name: Shut down Docker Compose services
+        run: docker-compose down  # Shut down services after the test completes
