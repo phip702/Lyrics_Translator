@@ -22,9 +22,9 @@ jobs:
 
       - name: Run Flask tests with coverage
         run: |
-          docker-compose exec flask-app coverage run -m pytest # Timeout after 30 seconds
-          docker-compose exec flask-app coverage report  # Print the coverage report
-          docker-compose exec flask-app coverage html  # Optional HTML report
+          docker-compose exec -T flask-app coverage run -m pytest
+          docker-compose exec -T flask-app coverage report
+          docker-compose exec -T flask-app coverage html
 
       - name: Upload coverage results (optional)
         uses: actions/upload-artifact@v3
