@@ -4,10 +4,10 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Or arm64 if you need ARM architecture
+    runs-on: ubuntu-latest 
 
     container:
-      image: arm64v8/python:3.9  # Use an ARM64-based Python image
+      image: python:3.12-slim  
       options: --platform linux/arm64  # Explicitly set ARM64 architecture for the job
     
     services:
