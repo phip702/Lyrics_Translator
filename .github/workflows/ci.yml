@@ -24,10 +24,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+          sudo lsof -i :5672 || echo "Port 5672 is free"
 
       - name: Build and start services using Docker Compose
         run: |
           docker-compose down
+          sudo lsof -i :5672 || echo "Port 5672 is free"
           docker-compose up -d
 
       - name: Run Flask tests with coverage
