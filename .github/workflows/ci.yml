@@ -28,11 +28,11 @@ jobs:
       - name: Build and start services using Docker Compose
         run: |
           docker-compose down
-          docker-compose -f docker-compose.yml up -d  # Start services in the background
+          docker-compose up -d
 
       - name: Run Flask tests with coverage
         run: |
-          docker-compose exec flask-app coverage run -m pytest app/tests/test_routes.py  # Run tests in the container
+          docker-compose exec flask-app coverage run -m pytest # Timeout after 30 seconds
           docker-compose exec flask-app coverage report  # Print the coverage report
           docker-compose exec flask-app coverage html  # Optional HTML report
 
